@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://cadppwc66e2k8"]
+
+[ext_resource type="Texture2D" uid="uid://8tpags7x3mw0" path="res://resources/iconoMisionGemas_01.png" id="1_qvhow"]
+
+[node name="ListarMisiones" type="Node2D"]
+
+[node name="IconoMision" type="TextureRect" parent="."]
+offset_right = 72.0
+offset_bottom = 72.0
+texture = ExtResource("1_qvhow")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 75.0
+offset_right = 260.00003
+offset_bottom = 62.0
+metadata/_edit_use_anchors_ = true
+
+[node name="TituloMision" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Titulo"
+
+[node name="ObjetivosMision" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "  Obten x gemas 2 / 5"

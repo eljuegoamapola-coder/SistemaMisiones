@@ -1,9 +1,10 @@
 extends Node
-
+# Llama a la función aplicar() de cada recompensa en el array entregado por argumento
 func aplicar_recompensas(recompensas: Array[Recompensa]):
 	for recompensa in recompensas:
 		recompensa.aplicar()
-	
+
+# Retorna un array con la información completa de las recompensas de una misión específica
 func getRecompensaMisionDesdeJson(idMision):
 	var recompensasCompletas = []
 	var recompensasMision = misionManager.getRecompensasMisionActiva(idMision)

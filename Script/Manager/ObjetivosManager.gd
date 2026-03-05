@@ -1,5 +1,6 @@
 extends Node
 
+# Retorna un objeto con toda la información de los objetivos de una misión específica
 func getObjetivosMisionConFormato(idMision):
 	var objetivos = misionManager.getObjetivosMisionActiva(idMision)
 	var objetivosFormateados = []

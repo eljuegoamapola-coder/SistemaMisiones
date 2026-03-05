@@ -1,15 +1,21 @@
 [
 	{
 		"id": "m1",
+		"titulo": "Colecciona Gemas",
+		"descripcion": "Reúne gemas para completar esta misión",
+		"icono": "res://resources/iconoMisionGemas_01.png",
+		"tiempoLimiteSegundos": 300.0,
+		"categoria": "Recolección",
+		"prioridad": 2.0,
 		"objetivos": [
 			{
 				"id": "gema3",
-				"progreso": 2,
+				"progreso": 2.0,
 				"completado": false
 			},
 			{
 				"id": "gema5",
-				"progreso": 0,
+				"progreso": 0.0,
 				"completado": false
 			}
 		],
@@ -20,24 +26,30 @@
 			}
 		],
 		"estado": "activo",
-		"tiempoRestante": 45
+		"tiempoRestante": 45.0
 	},
 	{
 		"id": "m2",
+		"titulo": "Colecciona más Gemas",
+		"descripcion": "Reúne 5 gemas especiales",
+		"icono": "res://resources/iconoMisionGemas_01.png",
+		"tiempoLimiteSegundos": -7.0,
+		"categoria": "Recolección",
+		"prioridad": 1.0,
 		"objetivos": [
 			{
-				"id": "gema3",
-				"progreso": 0,
+				"id": "gema5",
+				"progreso": 4.0,
 				"completado": false
 			}
 		],
-				"recompensas": [
+		"recompensas": [
 			{
 				"id": "r1",
 				"estado": "pendiente"
 			}
 		],
-		"estado": "finalizado",
-		"tiempoRestante": -7.0
+		"estado": "activo",
+		"tiempoRestante": 45.0
 	}
 ]
