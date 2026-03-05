@@ -1,0 +1,43 @@
+[
+	{
+		"id": "m1",
+		"objetivos": [
+			{
+				"id": "gema3",
+				"progreso": 2,
+				"completado": false
+			},
+			{
+				"id": "gema5",
+				"progreso": 0,
+				"completado": false
+			}
+		],
+		"recompensas": [
+			{
+				"id": "r1",
+				"estado": "pendiente"
+			}
+		],
+		"estado": "activo",
+		"tiempoRestante": 45
+	},
+	{
+		"id": "m2",
+		"objetivos": [
+			{
+				"id": "gema3",
+				"progreso": 0,
+				"completado": false
+			}
+		],
+				"recompensas": [
+			{
+				"id": "r1",
+				"estado": "pendiente"
+			}
+		],
+		"estado": "finalizado",
+		"tiempoRestante": -7.0
+	}
+]

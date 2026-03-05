@@ -1,0 +1,166 @@
+[gd_scene load_steps=2 format=3 uid="uid://cklxk3sehs133"]
+
+[ext_resource type="Script" uid="uid://bep1vcw0qykit" path="res://Escenas/inicio.gd" id="1_qijo6"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_qijo6")
+
+[node name="IconoMision" type="TextureRect" parent="."]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 110.0
+offset_bottom = 110.0
+
+[node name="TituloMision" type="Label" parent="."]
+offset_left = 115.0
+offset_top = 10.0
+offset_right = 1154.0
+offset_bottom = 110.0
+vertical_alignment = 1
+
+[node name="DescripcionMision" type="Label" parent="."]
+offset_left = 429.0
+offset_top = 174.0
+offset_right = 1133.0
+offset_bottom = 486.0
+
+[node name="TiempoLimite" type="Label" parent="."]
+offset_left = 976.0
+offset_top = 501.99997
+offset_right = 1016.0
+offset_bottom = 525.0
+
+[node name="Categoria" type="Label" parent="."]
+offset_left = 976.0
+offset_top = 528.0
+offset_right = 1016.0
+offset_bottom = 551.0
+
+[node name="Estado" type="Label" parent="."]
+offset_left = 976.0
+offset_top = 552.0
+offset_right = 1016.0
+offset_bottom = 575.0
+
+[node name="Prioridad" type="Label" parent="."]
+offset_left = 976.0
+offset_top = 576.0
+offset_right = 1016.0
+offset_bottom = 599.0
+
+[node name="Objetivos" type="Label" parent="."]
+offset_left = 10.0
+offset_top = 180.0
+offset_right = 410.0
+offset_bottom = 631.0
+
+[node name="RecompensasList" type="ItemList" parent="."]
+offset_left = 451.0
+offset_top = 540.0
+offset_right = 851.0
+offset_bottom = 632.0
+max_columns = 5
+icon_mode = 0
+
+[node name="contenedor" type="Node2D" parent="."]
+
+[node name="Label2" type="Label" parent="contenedor"]
+offset_left = 10.0
+offset_top = 120.0
+offset_right = 410.0
+offset_bottom = 169.0
+text = "Objetivos
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+visible_characters = 9
+visible_ratio = 0.993
+
+[node name="Label" type="Label" parent="contenedor"]
+offset_left = 600.0
+offset_top = 120.0
+offset_right = 1000.0
+offset_bottom = 168.99997
+text = "Descripción"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Label3" type="Label" parent="contenedor"]
+offset_left = 460.0
+offset_top = 502.0
+offset_right = 843.0
+offset_bottom = 542.0
+text = "Recompensas"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Label4" type="Label" parent="contenedor"]
+offset_left = 881.0
+offset_top = 501.99997
+offset_right = 975.0
+offset_bottom = 525.0
+text = "Tiempo:"
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+
+[node name="Label5" type="Label" parent="contenedor"]
+offset_left = 881.0
+offset_top = 526.0
+offset_right = 975.0
+offset_bottom = 549.0
+text = "Categoría:"
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+
+[node name="Label6" type="Label" parent="contenedor"]
+offset_left = 881.0
+offset_top = 550.0
+offset_right = 975.0
+offset_bottom = 573.0
+text = "Estado:"
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+
+[node name="Label7" type="Label" parent="contenedor"]
+offset_left = 881.0
+offset_top = 574.0
+offset_right = 975.0
+offset_bottom = 597.0
+text = "Prioridad:"
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+
+[node name="Line2D2" type="Line2D" parent="contenedor"]
+position = Vector2(426.20966, 319.02417)
+scale = Vector2(1.3882815, 36.501564)
+points = PackedVector2Array(-3.710369, -4.370122, -3.752594, 4.958029, -3.7948036, 8.697381)
+width = 5.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D4" type="Line2D" parent="contenedor"]
+position = Vector2(876.97687, 550.52014)
+scale = Vector2(0.7933046, 10.620999)
+points = PackedVector2Array(-3.710369, -4.370122, -3.7948036, 8.697381)
+width = 5.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D" type="Line2D" parent="contenedor"]
+position = Vector2(56.83197, 170)
+scale = Vector2(19.17925, 0.62)
+points = PackedVector2Array(-2.7079103, -4, 56.325024, -3.2257996)
+width = 5.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Line2D3" type="Line2D" parent="contenedor"]
+position = Vector2(458.46057, 500)
+scale = Vector2(12.255021, 0.62)
+points = PackedVector2Array(-2.7079103, -4, 56.325024, -3.2257996)
+width = 5.0
+default_color = Color(0, 0, 0, 1)

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MisionResource" load_steps=4 format=3 uid="uid://cdl00t786mi2o"]
+
+[ext_resource type="Script" uid="uid://dyb2ied16tdk" path="res://Script/Plantillas/PlantillaRecompensas.gd" id="1_itbm5"]
+[ext_resource type="Texture2D" uid="uid://8tpags7x3mw0" path="res://resources/iconoMisionGemas_01.png" id="1_ynwbo"]
+[ext_resource type="Script" uid="uid://cp35j3kvgjx3a" path="res://Script/Plantillas/PlantillaMisiones.gd" id="2_8q1il"]
+
+[resource]
+script = ExtResource("2_8q1il")
+id = "1"
+titulo = "Recolectar 3 gemas"
+descripcion = "Recolecta 3 gemas, sin tiempo límite"
+icono = ExtResource("1_ynwbo")
+tiempoLimiteSegundos = 100
+categoria = "Coleccionar"
+prioridad = 1
+metadata/_custom_type_script = "uid://cp35j3kvgjx3a"

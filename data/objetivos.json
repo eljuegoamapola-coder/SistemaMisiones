@@ -1,0 +1,48 @@
+[
+  {
+    "tipo": "coleccion",
+    "id": "gema3",
+    "nombre": "Colecciona 3 Gemas",
+    "descripcion": "Reúne 3 gemas para completar esta misión.",
+    "id_objeto": "gema",
+    "cantidad": 3
+  },
+  {
+    "tipo": "coleccion",
+    "id": "gema5",
+    "nombre": "Colecciona 5 Gemas",
+    "descripcion": "Reúne 5 gemas para completar esta misión.",
+    "id_objeto": "gema",
+    "cantidad": 5
+  },
+  {
+    "tipo": "exploracion",
+    "id": "descubrir3",
+    "nombre": "Explorador de Ruinas",
+    "descripcion": "Descubre 3 ruinas antiguas en el Valle de los Reyes.",
+    "zonas": [
+      "Ruina Norte",
+      "Tumba Olvidada",
+      "Templo del Sol"
+    ],
+    "completado": false
+  },
+  {
+    "tipo": "interaccion",
+    "id": "aldeano3",
+    "nombre": "Ayuda en la Aldea",
+    "descripcion": "Habla con 3 aldeanos necesitados en Pueblo Lirio.",
+    "id_personaje": "aldeano",
+    "cantidad": 3.0,
+    "completado": false
+  },
+  {
+    "tipo": "entrega",
+    "id": "paquete1",
+    "nombre": "Entrega Especial",
+    "descripcion": "Lleva el paquete misterioso al Mercader Errante.",
+    "id_objeto": "paquete_misterioso",
+    "id_receptor": "mercader_errante",
+    "completado": false
+  }
+]

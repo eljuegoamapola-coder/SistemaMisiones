@@ -1,0 +1,9 @@
+[
+    {
+        "id": "r1",
+        "icono": "res://resources/iconoImprimirPorConsola.png",
+        "tipo": "ImprimirPorConsola",
+        "texto": "MISION COMPLETADA: Has recolectado todas las gemas necesarias.",
+        "descripcion": "Esta recompensa se otorga al completar la misión de recolección de gemas. Felicidades por tu logro."
+    }
+]
