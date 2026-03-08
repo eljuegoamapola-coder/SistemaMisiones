@@ -65,3 +65,94 @@ func getInformacionMisionCompleta(idMision: String) -> Dictionary:
 		if m["id"] == idMision:
 			return m
 	return {}
+
+func getRecompensasMisionEspecifica(idMision):
+	var misionesActivas = getMisionesActivasDesdeJson()
+	for m in misionesActivas:
+		if m["id"] == idMision:
+			return m["recompensas"]
+	return null
+
+# Retorna los id de objetivos que esten en misiones activas con un tipo de objetivo y un tipo de objeto específico
+func comprobarMisionActConObjEspecifico(tipoObjeto, tipoObjetivo):
+	var misionesActivas = getMisionesActivasDesdeJson()
+	var misiones_encontradas = []
+	
+	var catalogoObjetivos = {}
+	if ResourceLoader.exists(varGlobales.jsonObjetivos):
+		var archivo = FileAccess.open(varGlobales.jsonObjetivos, FileAccess.READ)
+		if archivo != null:
+			var contenido = archivo.get_as_text()
+			var json = JSON.new()
+			var error = json.parse(contenido)
+			
+			if error == OK:
+				var objetivosArray = json.get_data()
+				for obj in objetivosArray:
+					catalogoObjetivos[obj["id"]] = obj
+			else:
+				print("Error al parsear objetivos.json: ", json.get_error_string())
+				return misiones_encontradas
+		else:
+			print("Error al abrir objetivos.json")
+			return misiones_encontradas
+	else:
+		print("Archivo no encontrado: ", varGlobales.jsonObjetivos)
+		return misiones_encontradas
+	
+	for m in misionesActivas:
+		for objetivo in m["objetivos"]:
+			var id_objetivo = objetivo["id"]
+			if catalogoObjetivos.has(id_objetivo):
+				var objetivoCompleto = catalogoObjetivos[id_objetivo]
+				var tipo = objetivoCompleto.get("tipo", "")
+				var tipo_obj = objetivoCompleto.get("tipo_objeto", objetivoCompleto.get("id_objeto", ""))
+				
+				if tipo == tipoObjetivo and tipo_obj == tipoObjeto:
+					if not misiones_encontradas.has(m["id"]):
+						misiones_encontradas.append(m["id"])
+	
+	return misiones_encontradas
+
+# Comprueba si las misiones activas tienen sus objetivos completados y actualiza su estado a "completada" si es así.
+func comprobarSiMisionTieneEstarActiva():
+	# print(recompensasManager.getRecompensaMisionDesdeJson("m1"))
+	if not ResourceLoader.exists(varGlobales.jsonMisiones):
+		return
+	
+	var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
+	if archivo == null:
+		return
+	
+	var contenido = archivo.get_as_text()
+	archivo.close()
+	var todasLasMisiones = JSON.parse_string(contenido)
+	
+	if todasLasMisiones == null:
+		return
+	
+	var hubo_cambios = false
+	for m in todasLasMisiones:
+		if m["estado"] != "activo":
+			continue
+		
+		# Primero actualizar estado de objetivos basado en progreso vs cantidad
+		objetivosManager.comprobarSiObjetivosDeMisionCompletados(m["id"])
+		
+		# Luego verificar si todos los objetivos están completados
+		var mision_completa = true
+		for objetivo in m["objetivos"]:
+			if not objetivo.get("completado", false):
+				mision_completa = false
+				break
+		
+		if mision_completa:
+			m["estado"] = "completada"
+			hubo_cambios = true
+			recompensasManager.aplicarRecompensasMision(m["id"])
+	
+	if hubo_cambios:
+		archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.WRITE)
+		if archivo != null:
+			archivo.store_string(JSON.stringify(todasLasMisiones, "\t", false))
+			archivo.close()

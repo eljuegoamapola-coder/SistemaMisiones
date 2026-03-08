@@ -3,29 +3,24 @@
     "tipo": "coleccion",
     "id": "gema3",
     "nombre": "Colecciona 3 Gemas",
-    "descripcion": "Reúne 3 gemas para completar esta misión.",
-    "id_objeto": "gema",
-    "cantidad": 3
+    "descripcion": "Reúne 3 gemas de cualquier color para completar esta misión.",
+    "tipo_objeto": "gema",
+    "cantidad": 3.0
   },
   {
     "tipo": "coleccion",
     "id": "gema5",
     "nombre": "Colecciona 5 Gemas",
     "descripcion": "Reúne 5 gemas para completar esta misión.",
-    "id_objeto": "gema",
-    "cantidad": 5
+    "tipo_objeto": "gema",
+    "cantidad": 5.0
   },
   {
-    "tipo": "exploracion",
-    "id": "descubrir3",
-    "nombre": "Explorador de Ruinas",
-    "descripcion": "Descubre 3 ruinas antiguas en el Valle de los Reyes.",
-    "zonas": [
-      "Ruina Norte",
-      "Tumba Olvidada",
-      "Templo del Sol"
-    ],
-    "completado": false
+    "tipo": "Eliminacion",
+    "id": "eliminarEnemigos5",
+    "nombre": "Elimina 5 Enemigos",
+    "descripcion": "Elimina 5 enemigos para completar esta misión.",
+    "cantidad": 5.0
   },
   {
     "tipo": "interaccion",

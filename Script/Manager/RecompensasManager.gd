@@ -1,8 +1,13 @@
 extends Node
-# Llama a la función aplicar() de cada recompensa en el array entregado por argumento
-func aplicar_recompensas(recompensas: Array[Recompensa]):
-	for recompensa in recompensas:
-		recompensa.aplicar()
+
+const RECOMPENSAS_POR_TIPO := {
+	"ImprimirPorConsola": preload("res://Script/Recompensas/ImprimirPorConsola.gd"),
+	"AbrirPuerta": preload("res://Script/Recompensas/AbrirPuerta.gd")
+}
+
+# Llama a la funcion aplicar(data) de una recompensa con todos sus datos.
+func aplicar_recompensa(recompensa: Recompensa, recompensa_data: Dictionary):
+	recompensa.aplicar(recompensa_data)
 
 # Retorna un array con la información completa de las recompensas de una misión específica
 func getRecompensaMisionDesdeJson(idMision):
@@ -10,7 +15,6 @@ func getRecompensaMisionDesdeJson(idMision):
 	var recompensasMision = misionManager.getRecompensasMisionActiva(idMision)
 
 	if recompensasMision == null:
-		print("Misión no encontrada o sin recompensas: ", idMision)
 		return recompensasCompletas
 	
 	if ResourceLoader.exists(varGlobales.jsonRecompensas):
@@ -38,3 +42,19 @@ func getRecompensaMisionDesdeJson(idMision):
 		print("Archivo no encontrado: ", varGlobales.jsonRecompensas)
 	
 	return recompensasCompletas
+# Retorna un array con la información completa de las recompensas de una misión específica
+func aplicarRecompensasMision(idMision):
+	var recompensas_data = getRecompensaMisionDesdeJson(idMision)
+
+	for recompensa_data in recompensas_data:
+		if recompensa_data.get("estado", "pendiente") != "pendiente":
+			continue
+
+		var tipo = str(recompensa_data.get("tipo", ""))
+		if not RECOMPENSAS_POR_TIPO.has(tipo):
+			print("Tipo de recompensa no soportado: ", tipo)
+			continue
+
+		var recompensa_script = RECOMPENSAS_POR_TIPO[tipo]
+		var recompensa_instancia: Recompensa = recompensa_script.new()
+		aplicar_recompensa(recompensa_instancia, recompensa_data)

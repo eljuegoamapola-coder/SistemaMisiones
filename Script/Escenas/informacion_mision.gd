@@ -2,8 +2,8 @@ extends Node2D
 # const  objetivoTipoColeccion = preload("res://Script/Objetivos/coleccion.gd")
 
 
-func _ready() -> void:
-	pintarInformacionMision("m2") # Provisional para iniciar escena con información en las pruebas
+# func _ready() -> void:
+# 	pintarInformacionMision("m2") # Provisional para iniciar escena con información en las pruebas
 
 # Pintar la información de una misión específica en la interfaz
 func pintarInformacionMision(mision_id):
@@ -34,17 +34,7 @@ func pintarInformacionMision(mision_id):
 	estado_mision.text = informacion.get("estado", "desconocido")
 	prioridad_mision.text = str(utils.formatearNumeroAEntero(informacion.get("prioridad", 0)))
 
-	var objetivos_formateados = objetivosManager.getObjetivosMisionConFormato(mision_id)
-	var salida = ""
-	for objetivo in objetivos_formateados:
-		var nombre = str(objetivo.get("nombre", "Objetivo sin nombre"))
-		var progreso = str(objetivo.get("progreso", 0))
-		var cantidad = objetivo.get("cantidad", 0)
-		var descripcion = str(objetivo.get("descripcion", "Sin descripción"))
-		salida += "- %s   %s / %s\n    - %s\n" % [nombre, progreso, cantidad, descripcion]
-	objetivos_mision.text = salida
-
-	print(objetivos_mision.text)
+	objetivos_mision.text = objetivosManager.getObjetivosMisionConFormato_01(mision_id)
 
 	recompensas_mision.add_item("",load("res://resources/iconoImprimirPorConsola.png"))
 	pass

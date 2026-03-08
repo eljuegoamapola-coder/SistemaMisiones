@@ -1,4 +1,5 @@
 extends Recompensa
 
-func aplicar():
-	print("¡Recompensa aplicada! Has loggrado encontrar los 3 objetos especiales.")
+func aplicar(recompensa_data: Dictionary):
+	var texto = str(recompensa_data.get("texto", "Recompensa aplicada"))
+	print(texto)
