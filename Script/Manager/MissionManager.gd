@@ -23,6 +23,52 @@ func getMisionesActivasDesdeJson():
 	else:
 		print("Archivo no encontrado: ", varGlobales.jsonMisiones)
 	return misiones
+
+func getMisionesDesdeJsonConformatoJson() -> String:
+	var misiones = []
+
+	if ResourceLoader.exists(varGlobales.jsonMisiones):
+		var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
+		if archivo != null:
+			var contenido = archivo.get_as_text()
+			var json = JSON.new()
+			var error = json.parse(contenido)
+
+			if error == OK:
+				misiones = json.get_data()
+			else:
+				print("Error al parsear JSON: ", json.get_error_string())
+				return "[]"
+		else:
+			print("Error al abrir el archivo: ", varGlobales.jsonMisiones)
+			return "[]"
+	else:
+		print("Archivo no encontrado: ", varGlobales.jsonMisiones)
+		return "[]"
+
+	# Retorna un JSON legible con indentacion de 4 espacios.
+	return JSON.stringify(misiones, "    ", false)
+
+func getMisionesDesdeJsonFormJson():
+	var misiones = []
+
+	if ResourceLoader.exists(varGlobales.jsonMisiones):
+		var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
+		if archivo != null:
+			var contenido = archivo.get_as_text()
+			var json = JSON.new()
+			var error = json.parse(contenido)
+
+			if error == OK:
+				misiones = json.get_data()
+			else:
+				print("Error al parsear JSON: ", json.get_error_string())
+		else:
+			print("Error al abrir el archivo: ", archivo.get_error())
+	else:
+		print("Archivo no encontrado: ", varGlobales.jsonMisiones)
+	return misiones
+
 # Retorna un array con el id de todas las misiones activas
 func getIdMisionesActivas():
 	var misionesActivas = getMisionesActivasDesdeJson()

@@ -35,6 +35,50 @@ func getObjetivosMisionObj(idMision):
 
 	return objetivosFormateados
 
+func getIdYNombreObjetivosJson():
+	var resultado = []
+	if ResourceLoader.exists(varGlobales.jsonObjetivos):
+		var archivo = FileAccess.open(varGlobales.jsonObjetivos, FileAccess.READ)
+		if archivo != null:
+			var contenido = archivo.get_as_text()
+			var json = JSON.new()
+			var error = json.parse(contenido)
+
+			if error == OK:
+				var objetivosCatalogo = json.get_data()
+				for objetivoCatalogo in objetivosCatalogo:
+					resultado.append({"id": objetivoCatalogo["id"], "nombre": objetivoCatalogo["nombre"], "icono": objetivoCatalogo.get("icono", "")})
+			else:print("Error al parsear JSON: ", json.get_error_string())
+		else:print("Error al abrir el archivo: ", archivo.get_error())
+	else:print("Archivo no encontrado: ", varGlobales.jsonObjetivos)
+
+	return resultado
+
+func getObjetivosDesdeJsonConformatoJson() -> String:
+	var objetivos = []
+
+	if ResourceLoader.exists(varGlobales.jsonObjetivos):
+		var archivo = FileAccess.open(varGlobales.jsonObjetivos, FileAccess.READ)
+		if archivo != null:
+			var contenido = archivo.get_as_text()
+			var json = JSON.new()
+			var error = json.parse(contenido)
+
+			if error == OK:
+				objetivos = json.get_data()
+			else:
+				print("Error al parsear JSON: ", json.get_error_string())
+				return "[]"
+		else:
+			print("Error al abrir el archivo: ", varGlobales.jsonObjetivos)
+			return "[]"
+	else:
+		print("Archivo no encontrado: ", varGlobales.jsonObjetivos)
+		return "[]"
+
+	# Retorna un JSON legible con indentacion de 4 espacios.
+	return JSON.stringify(objetivos, "    ", false)
+
 func getObjetivosMisionConFormato_01(mision_id):
 	var objetivos_formateados = getObjetivosMisionObj(mision_id)
 	var salida = ""

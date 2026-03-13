@@ -7,3 +7,9 @@ var jsonRecompensas = "res://data/recompensas.json"
 
 # Imagenes
 var imgError = "res://resources/iconoError.png"
+
+# Listas
+var listaTiposMisiones = {
+    "Recolección" : "res://Script/Misiones/Recoleccion.gd",
+}
+var listaEstadosMisiones = ["bloqueada", "activo", "completada", "fallida"]

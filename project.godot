@@ -25,4 +25,4 @@ varGlobales="*res://Script/variablesGlobales.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/GestorDeMisiones/plugin.cfg")

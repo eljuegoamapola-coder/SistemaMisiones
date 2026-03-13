@@ -9,6 +9,25 @@ const RECOMPENSAS_POR_TIPO := {
 func aplicar_recompensa(recompensa: Recompensa, recompensa_data: Dictionary):
 	recompensa.aplicar(recompensa_data)
 
+func getIdYDescripcionRecompensasJson():
+	var resultado = []
+	if ResourceLoader.exists(varGlobales.jsonRecompensas):
+		var archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.READ)
+		if archivo != null:
+			var contenido = archivo.get_as_text()
+			var json = JSON.new()
+			var error = json.parse(contenido)
+
+			if error == OK:
+				var recompensasCatalogo = json.get_data()
+				for recompensaCatalogo in recompensasCatalogo:
+					resultado.append({"id": recompensaCatalogo["id"],"descripcion": recompensaCatalogo.get("descripcion", ""), "icono": recompensaCatalogo.get("icono", "")})
+			else:print("Error al parsear JSON: ", json.get_error_string())
+		else:print("Error al abrir el archivo: ", archivo.get_error())
+	else:print("Archivo no encontrado: ", varGlobales.jsonRecompensas)
+
+	return resultado
+
 # Retorna un array con la información completa de las recompensas de una misión específica
 func getRecompensaMisionDesdeJson(idMision):
 	var recompensasCompletas = []
@@ -42,6 +61,32 @@ func getRecompensaMisionDesdeJson(idMision):
 		print("Archivo no encontrado: ", varGlobales.jsonRecompensas)
 	
 	return recompensasCompletas
+
+func getRecompensasDesdeJsonConformatoJson() -> String:
+	var recompensas = []
+
+	if ResourceLoader.exists(varGlobales.jsonRecompensas):
+		var archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.READ)
+		if archivo != null:
+			var contenido = archivo.get_as_text()
+			var json = JSON.new()
+			var error = json.parse(contenido)
+
+			if error == OK:
+				recompensas = json.get_data()
+			else:
+				print("Error al parsear JSON: ", json.get_error_string())
+				return "[]"
+		else:
+			print("Error al abrir el archivo: ", varGlobales.jsonRecompensas)
+			return "[]"
+	else:
+		print("Archivo no encontrado: ", varGlobales.jsonRecompensas)
+		return "[]"
+
+	# Retorna un JSON legible con indentacion de 4 espacios.
+	return JSON.stringify(recompensas, "    ", false)
+
 # Retorna un array con la información completa de las recompensas de una misión específica
 func aplicarRecompensasMision(idMision):
 	var recompensas_data = getRecompensaMisionDesdeJson(idMision)
