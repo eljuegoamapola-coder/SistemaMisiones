@@ -2,8 +2,9 @@ extends Node2D
 # const  objetivoTipoColeccion = preload("res://Script/Objetivos/coleccion.gd")
 
 
-# func _ready() -> void:
-# 	pintarInformacionMision("m2") # Provisional para iniciar escena con información en las pruebas
+func _ready() -> void:
+	pintarInformacionMision("m2") # Provisional para iniciar escena con información en las pruebas
+	pass
 
 # Pintar la información de una misión específica en la interfaz
 func pintarInformacionMision(mision_id):
@@ -16,6 +17,7 @@ func pintarInformacionMision(mision_id):
 	var prioridad_mision = $Prioridad
 	var objetivos_mision = $Objetivos
 	var recompensas_mision = $RecompensasList
+	
 
 	var informacion = misionManager.getInformacionMisionCompleta(mision_id)
 	

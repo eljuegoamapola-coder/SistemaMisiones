@@ -8,20 +8,24 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="SistemaMisiones"
 run/main_scene="uid://3oamf8gcruu6"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-utils="*res://Script/Utilidades.gd"
-misionManager="*res://Script/Manager/MissionManager.gd"
-objetivosManager="*res://Script/Manager/ObjetivosManager.gd"
-recompensasManager="*res://Script/Manager/RecompensasManager.gd"
-varGlobales="*res://Script/variablesGlobales.gd"
+utils="*res://addons/GestorDeMisiones/core/Utilidades.gd"
+misionManager="*res://addons/GestorDeMisiones/core/Manager/MissionManager.gd"
+objetivosManager="*res://addons/GestorDeMisiones/core/Manager/ObjetivosManager.gd"
+recompensasManager="*res://addons/GestorDeMisiones/core/Manager/RecompensasManager.gd"
+varGlobales="*res://addons/GestorDeMisiones/core/variablesGlobales.gd"
 
 [editor_plugins]
 

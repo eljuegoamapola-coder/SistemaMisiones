@@ -1,0 +1,150 @@
+[gd_scene format=3 uid="uid://disut6vp0jfg2"]
+
+[ext_resource type="Script" uid="uid://dqncrhedbd4pv" path="res://addons/GestorDeMisiones/editor/scripts/crear_objetivo_gui.gd" id="1_2rcqw"]
+
+[node name="CrearObjetivoGui" type="VBoxContainer" unique_id=460287459]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2rcqw")
+
+[node name="L1" type="HBoxContainer" parent="." unique_id=1296983787]
+layout_mode = 2
+
+[node name="Label_Id" type="Label" parent="L1" unique_id=1362521890]
+layout_mode = 2
+text = "Id"
+
+[node name="IdObjetivo" type="LineEdit" parent="L1" unique_id=1035152879]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="AutoId" type="CheckBox" parent="L1" unique_id=1565117495]
+layout_mode = 2
+
+[node name="Tipo" type="Label" parent="L1" unique_id=1102817653]
+layout_mode = 2
+text = " | Tipo"
+
+[node name="TipoObjetivo" type="OptionButton" parent="L1" unique_id=511835236]
+layout_mode = 2
+
+[node name="L2" type="HBoxContainer" parent="." unique_id=1470372231]
+layout_mode = 2
+
+[node name="Label_Titulo" type="Label" parent="L2" unique_id=1482703001]
+layout_mode = 2
+text = "Título"
+
+[node name="NombreObjetivo" type="LineEdit" parent="L2" unique_id=1227730377]
+custom_minimum_size = Vector2(886.71, 0)
+layout_mode = 2
+
+[node name="L3" type="VBoxContainer" parent="." unique_id=916345291]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label_Descripcion" type="Label" parent="L3" unique_id=931737720]
+layout_mode = 2
+text = "Descripción"
+
+[node name="DescripcionObjetivo" type="LineEdit" parent="L3" unique_id=1600231961]
+layout_mode = 2
+
+[node name="L4_Objetivos" type="VBoxContainer" parent="." unique_id=1815106558]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Coleccion" type="HBoxContainer" parent="L4_Objetivos" unique_id=1970977684]
+layout_mode = 2
+
+[node name="Identificacion_" type="Label" parent="L4_Objetivos/Coleccion" unique_id=1130480612]
+layout_mode = 2
+text = "Identificación objeto/s"
+
+[node name="identificacion" type="OptionButton" parent="L4_Objetivos/Coleccion" unique_id=1030027160]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "ID"
+popup/item_0/id = 0
+popup/item_1/text = "tipo"
+popup/item_1/id = 1
+
+[node name="tipoId" type="LineEdit" parent="L4_Objetivos/Coleccion" unique_id=812680464]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Cantidad_" type="Label" parent="L4_Objetivos/Coleccion" unique_id=1198329336]
+layout_mode = 2
+text = "Cantidad"
+
+[node name="cantidad" type="SpinBox" parent="L4_Objetivos/Coleccion" unique_id=246934066]
+layout_mode = 2
+max_value = 9.223372e+18
+
+[node name="Eliminacion" type="HBoxContainer" parent="L4_Objetivos" unique_id=954881977]
+visible = false
+layout_mode = 2
+
+[node name="Identificacion_" type="Label" parent="L4_Objetivos/Eliminacion" unique_id=509740998]
+layout_mode = 2
+text = "Identificación"
+
+[node name="identificacion" type="OptionButton" parent="L4_Objetivos/Eliminacion" unique_id=1726162347]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "ID"
+popup/item_0/id = 0
+popup/item_1/text = "tipo"
+popup/item_1/id = 1
+
+[node name="tipoId" type="LineEdit" parent="L4_Objetivos/Eliminacion" unique_id=13213702]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Cantidad_" type="Label" parent="L4_Objetivos/Eliminacion" unique_id=1591263858]
+layout_mode = 2
+text = "Cantidad"
+
+[node name="cantidad" type="SpinBox" parent="L4_Objetivos/Eliminacion" unique_id=1022101306]
+layout_mode = 2
+
+[node name="Interaccion" type="HBoxContainer" parent="L4_Objetivos" unique_id=593117950]
+visible = false
+layout_mode = 2
+
+[node name="Identificacion_" type="Label" parent="L4_Objetivos/Interaccion" unique_id=973438584]
+layout_mode = 2
+text = "Identificación"
+
+[node name="id" type="LineEdit" parent="L4_Objetivos/Interaccion" unique_id=1495630660]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Entrega" type="HBoxContainer" parent="L4_Objetivos" unique_id=364530417]
+visible = false
+layout_mode = 2
+
+[node name="Identificacion_" type="Label" parent="L4_Objetivos/Entrega" unique_id=825937306]
+layout_mode = 2
+text = "Identificación Item"
+
+[node name="idItem" type="LineEdit" parent="L4_Objetivos/Entrega" unique_id=435866833]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Identificacion_2" type="Label" parent="L4_Objetivos/Entrega" unique_id=809443306]
+layout_mode = 2
+text = "Identificación receptor"
+
+[node name="idReceptor" type="LineEdit" parent="L4_Objetivos/Entrega" unique_id=21166462]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Button_Guardar" type="Button" parent="." unique_id=1478134639]
+layout_mode = 2
+text = "Guardar"

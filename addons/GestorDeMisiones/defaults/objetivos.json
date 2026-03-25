@@ -1,0 +1,26 @@
+[
+	{
+		"tipo": "coleccion",
+		"id": "gema3",
+		"nombre": "Colecciona 3 Gemas",
+		"descripcion": "Reúne 3 gemas de cualquier color para completar esta misión.",
+		"tipo_objeto": "gema",
+		"cantidad": 3.0
+	},
+	{
+		"id": "coleccion02",
+		"tipo": "Coleccion",
+		"nombre": "Titulo",
+		"descripcion": "descripcion",
+		"idItem": "idcoleccion",
+		"cantidad": 30.0
+	},
+	{
+		"id": "asd",
+		"tipo": "Coleccion",
+		"nombre": "asdasd",
+		"descripcion": "asdad",
+		"idItem": "fdsdfsfd",
+		"cantidad": 122
+	}
+]

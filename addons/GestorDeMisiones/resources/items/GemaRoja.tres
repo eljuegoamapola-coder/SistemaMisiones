@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://qddy4xa3fji0"]
+
+[ext_resource type="Texture2D" uid="uid://cvnscjw1ma3xw" path="res://addons/GestorDeMisiones/editor/icons/iconoItemGemaRoja.png" id="1_6h7xe"]
+[ext_resource type="Script" uid="uid://d1ws4wshq5twm" path="res://addons/GestorDeMisiones/core/Plantillas/PlantillaItems.gd" id="1_o6gur"]
+
+[resource]
+script = ExtResource("1_o6gur")
+id = "GemaRoja1"
+tipo = "gema"
+nombre = "GemaRoja"
+descripcion = "Gema de color rojo"
+icono = ExtResource("1_6h7xe")
+metadata/_custom_type_script = "uid://d1ws4wshq5twm"
