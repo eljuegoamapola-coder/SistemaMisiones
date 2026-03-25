@@ -1,3 +1,4 @@
 res://addons/GestorDeMisiones/editor/scripts/crear_objetivo_gui.gd
 res://addons/GestorDeMisiones/editor/scenes/CrearObjetivoGui.tscn
 res://addons/GestorDeMisiones/core/Manager/ObjetivosManager.gd
+res://addons/GestorDeMisiones/core/Utilidades.gd

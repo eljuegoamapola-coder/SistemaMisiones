@@ -54,6 +54,23 @@ func getIdYNombreObjetivosJson():
 
 	return resultado
 
+func getIdObjetivosJson():
+	var resultado = []
+	if ResourceLoader.exists(varGlobales.jsonObjetivos):
+		var archivo = FileAccess.open(varGlobales.jsonObjetivos, FileAccess.READ)
+		if archivo != null:
+			var contenido = archivo.get_as_text()
+			var json = JSON.new()
+			var error = json.parse(contenido)
+
+			if error == OK:
+				var objetivosCatalogo = json.get_data()
+				for objetivoCatalogo in objetivosCatalogo:
+					resultado.append(objetivoCatalogo["id"])
+	print(resultado);
+
+	return resultado
+
 func getObjetivosDesdeJsonConformatoJson() -> String:
 	var objetivos = []
 

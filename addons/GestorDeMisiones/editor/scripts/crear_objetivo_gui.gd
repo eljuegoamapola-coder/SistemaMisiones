@@ -7,8 +7,9 @@ extends VBoxContainer
 @onready var idObjetivo: LineEdit = $L1/IdObjetivo
 @onready var nombreObjetivo: LineEdit = $L2/NombreObjetivo
 @onready var descripcionObjetivo: LineEdit = $L3/DescripcionObjetivo
+@onready var avisoErrores: Label = $avisoErrores
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	setTipos()
 	_actualizar_visibilidad_objetivos("")
@@ -24,7 +25,7 @@ func setTipos() -> void:
 		tipo_objetivo.add_item(tipo)
 	tipo_objetivo.select(-1)
 
-
+# Obtiene los nombres de los tipos de objetivos a partir de los nodos hijos del contenedor de objetivos
 func obtenerTipos() -> Array[String]:
 	if contenedor_objetivos == null:
 		return []
@@ -40,7 +41,7 @@ func _on_tipo_objetivo_item_selected(index: int) -> void:
 	var tipo_seleccionado := tipo_objetivo.get_item_text(index)
 	_actualizar_visibilidad_objetivos(tipo_seleccionado)
 
-
+#  Actualiza la visibilidad de los nodos hijos del contenedor de objetivos según el tipo seleccionado
 func _actualizar_visibilidad_objetivos(tipo_seleccionado: String) -> void:
 	if contenedor_objetivos == null:
 		return
@@ -49,16 +50,24 @@ func _actualizar_visibilidad_objetivos(tipo_seleccionado: String) -> void:
 		if subnodo is CanvasItem:
 			subnodo.visible = String(subnodo.name) == tipo_seleccionado
 
-
+# Maneja la lógica al presionar el botón de guardar, creando un nuevo objetivo con los datos ingresados y validando los campos requeridos
 func _on_boton_guardar_pressed() -> void:
 	var selected_index := tipo_objetivo.get_selected()
-	if selected_index < 0:
-		print("Selecciona un tipo antes de guardar")
+
+	var idEscrito := idObjetivo.text != ""
+	var idObjetivoText = idObjetivo.text if idEscrito else utils.generarIdAutomatico()
+	var todoId = objetivosManager.getIdObjetivosJson()
+
+	if idEscrito and idObjetivoText in todoId:
+		avisoErrores.text = "El ID '" + idObjetivoText + "' ya existe. Por favor, introduce un ID diferente."
 		return
+
+	while idObjetivoText in todoId:
+		idObjetivoText = utils.generarIdAutomatico()
 
 	var tipo_seleccionado := tipo_objetivo.get_item_text(selected_index)
 	var objetivo_json: Dictionary = {}
-	agregar_campo_json(objetivo_json, "id", idObjetivo.text)
+	agregar_campo_json(objetivo_json, "id", idObjetivoText)
 	agregar_campo_json(objetivo_json, "tipo", tipo_seleccionado)
 	agregar_campo_json(objetivo_json, "nombre", nombreObjetivo.text)
 	agregar_campo_json(objetivo_json, "descripcion", descripcionObjetivo.text)
@@ -68,16 +77,49 @@ func _on_boton_guardar_pressed() -> void:
 			var tipo_id: LineEdit = $L4_Objetivos/Coleccion/tipoId
 			var cantidad: SpinBox = $L4_Objetivos/Coleccion/cantidad
 			var identificacion: OptionButton = $L4_Objetivos/Coleccion/identificacion
-			if identificacion.get_selected() == 0:
-				agregar_campo_json(objetivo_json, "idItem", tipo_id.text)
-			elif identificacion.get_selected() == 1:
+			if identificacion.get_selected() == 1:
 				agregar_campo_json(objetivo_json, "tipoItem", tipo_id.text)
+			else:
+				agregar_campo_json(objetivo_json, "idItem", tipo_id.text)
 			agregar_campo_json(objetivo_json, "cantidad", utils.formatearNumeroAEntero(cantidad.value))
 
-	print(JSON.stringify(objetivo_json, "\t"))
-	objetivosManager.setNuevoObjetivoEnJson(objetivo_json)
+		"Eliminacion":
+			var tipo_id: LineEdit = $L4_Objetivos/Eliminacion/tipoId
+			var cantidad: SpinBox = $L4_Objetivos/Eliminacion/cantidad
+			var identificacion: OptionButton = $L4_Objetivos/Eliminacion/identificacion
+			if identificacion.get_selected() == 1:
+				agregar_campo_json(objetivo_json, "tipoEnemigo", tipo_id.text)
+			else:
+				agregar_campo_json(objetivo_json, "idEnemigo", tipo_id.text)
+			agregar_campo_json(objetivo_json, "cantidad", utils.formatearNumeroAEntero(cantidad.value))
+
+		"Interaccion":
+			var idInteraccion: LineEdit = $L4_Objetivos/Interaccion/idInteraccion
+			agregar_campo_json(objetivo_json, "idInteraccion", idInteraccion.text)
+
+		"Entrega":
+			var idEntrega: LineEdit = $L4_Objetivos/Entrega/idItemEntregar
+			var cantidad: SpinBox = $L4_Objetivos/Entrega/cantidadEntregar
+			var idReceptor: LineEdit = $L4_Objetivos/Entrega/idReceptor
+			agregar_campo_json(objetivo_json, "idItemEntregar", idEntrega.text)
+			agregar_campo_json(objetivo_json, "cantidad", utils.formatearNumeroAEntero(cantidad.value))
+			agregar_campo_json(objetivo_json, "idReceptor", idReceptor.text)
+	
+	avisoErrores.text = ""
+	if comprobarCamposRequeridos(objetivo_json):
+		objetivosManager.setNuevoObjetivoEnJson(objetivo_json)
 
 
 func agregar_campo_json(objetivo_json: Dictionary, clave: String, valor: Variant) -> void:
 	objetivo_json[clave] = valor
-	
+
+# Valida que los campos requeridos no estén vacíos, mostrando un mensaje de error si alguno lo está
+func comprobarCamposRequeridos(objetivo_json: Dictionary) -> bool:
+	var campos_vacios: Array = []
+	for campo in objetivo_json.keys():
+		if str(objetivo_json[campo]).strip_edges() == "":
+			campos_vacios.append(campo)
+	if campos_vacios.size() > 0:
+		avisoErrores.text = "Campos obligatorios vacíos: " + ", ".join(campos_vacios)
+		return false
+	return true

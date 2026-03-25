@@ -21,9 +21,6 @@ text = "Id"
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="AutoId" type="CheckBox" parent="L1" unique_id=1565117495]
-layout_mode = 2
-
 [node name="Tipo" type="Label" parent="L1" unique_id=1102817653]
 layout_mode = 2
 text = " | Tipo"
@@ -36,7 +33,7 @@ layout_mode = 2
 
 [node name="Label_Titulo" type="Label" parent="L2" unique_id=1482703001]
 layout_mode = 2
-text = "Título"
+text = "Nombre"
 
 [node name="NombreObjetivo" type="LineEdit" parent="L2" unique_id=1227730377]
 custom_minimum_size = Vector2(886.71, 0)
@@ -60,6 +57,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 
 [node name="Coleccion" type="HBoxContainer" parent="L4_Objetivos" unique_id=1970977684]
+visible = false
 layout_mode = 2
 
 [node name="Identificacion_" type="Label" parent="L4_Objetivos/Coleccion" unique_id=1130480612]
@@ -87,7 +85,6 @@ layout_mode = 2
 max_value = 9.223372e+18
 
 [node name="Eliminacion" type="HBoxContainer" parent="L4_Objetivos" unique_id=954881977]
-visible = false
 layout_mode = 2
 
 [node name="Identificacion_" type="Label" parent="L4_Objetivos/Eliminacion" unique_id=509740998]
@@ -121,19 +118,18 @@ layout_mode = 2
 layout_mode = 2
 text = "Identificación"
 
-[node name="id" type="LineEdit" parent="L4_Objetivos/Interaccion" unique_id=1495630660]
+[node name="idInteraccion" type="LineEdit" parent="L4_Objetivos/Interaccion" unique_id=1495630660]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
 [node name="Entrega" type="HBoxContainer" parent="L4_Objetivos" unique_id=364530417]
-visible = false
 layout_mode = 2
 
 [node name="Identificacion_" type="Label" parent="L4_Objetivos/Entrega" unique_id=825937306]
 layout_mode = 2
 text = "Identificación Item"
 
-[node name="idItem" type="LineEdit" parent="L4_Objetivos/Entrega" unique_id=435866833]
+[node name="idItemEntregar" type="LineEdit" parent="L4_Objetivos/Entrega" unique_id=435866833]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
@@ -145,6 +141,19 @@ text = "Identificación receptor"
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
+[node name="Cantidad_" type="Label" parent="L4_Objetivos/Entrega" unique_id=1994504365]
+layout_mode = 2
+text = "Cantidad"
+
+[node name="cantidadEntregar" type="SpinBox" parent="L4_Objetivos/Entrega" unique_id=606149013]
+layout_mode = 2
+
 [node name="Button_Guardar" type="Button" parent="." unique_id=1478134639]
 layout_mode = 2
 text = "Guardar"
+
+[node name="avisoErrores" type="Label" parent="." unique_id=806280050]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1

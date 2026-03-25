@@ -13,3 +13,8 @@ func formSegundosAHorasMinutosSegundos(segundos):
 		return "%02d:%02d:%02d" % [horas, minutos, segs]
 	else:
 		return "%02d:%02d" % [minutos, segs]
+
+func generarIdAutomatico() -> String:
+	var timestamp: int = Time.get_ticks_msec()
+	var random_part := randi() % 10000
+	return "obj_" + str(timestamp) + "_" + str(random_part)
