@@ -1,17 +1,10 @@
 [
 	{
-		"id": "obj_14210_7613",
-		"tipo": "Coleccion",
-		"nombre": "asda",
-		"descripcion": "asda",
-		"cantidad": 0.0
-	},
-	{
-		"id": "obj_14826_6031",
-		"tipo": "Coleccion",
-		"nombre": "xcv",
-		"descripcion": "xcv",
-		"idItem": "xvcx",
-		"cantidad": 0
+		"id": "obj_27372_7866",
+		"tipo": "coleccion",
+		"nombre": "Colecciona 3 gemas",
+		"descripcion": "Colecciona 3 gemas",
+		"idItem": "GemaRoja1",
+		"cantidad": 3
 	}
 ]

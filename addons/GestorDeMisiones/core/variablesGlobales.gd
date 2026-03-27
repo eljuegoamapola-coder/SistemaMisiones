@@ -13,3 +13,6 @@ var listaTiposMisiones = {
     "Recolección" : "res://addons/GestorDeMisiones/core/Misiones/Recoleccion.gd",
 }
 var listaEstadosMisiones = ["bloqueada", "activo", "completada", "fallida"]
+
+# Estadisticas
+var vida = 100

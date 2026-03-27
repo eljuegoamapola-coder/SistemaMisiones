@@ -1,87 +1,93 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6n5l3fbvyx44"]
+[gd_scene format=3 uid="uid://b6n5l3fbvyx44"]
 
+[ext_resource type="Script" uid="uid://ccr8r4b5besqj" path="res://addons/GestorDeMisiones/editor/scripts/crear_recompensa_gui.gd" id="1_35ejq"]
 [ext_resource type="Texture2D" uid="uid://cfflagmp4oxb8" path="res://addons/GestorDeMisiones/editor/icons/iconoError.png" id="1_tjmmc"]
 
-[node name="CrearRecompensaGui" type="VBoxContainer"]
+[node name="CrearRecompensaGui" type="VBoxContainer" unique_id=426590884]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_35ejq")
 
-[node name="Button_IconoRecompensa" type="Button" parent="."]
+[node name="IconoRecompensa" type="Button" parent="." unique_id=526955913]
 layout_mode = 2
 icon = ExtResource("1_tjmmc")
 flat = true
 
-[node name="L1" type="HBoxContainer" parent="."]
+[node name="L1" type="HBoxContainer" parent="." unique_id=902749084]
 layout_mode = 2
 
-[node name="Label_Id" type="Label" parent="L1"]
+[node name="Label_Id" type="Label" parent="L1" unique_id=1492455172]
 layout_mode = 2
 text = "Id"
 
-[node name="LineEdit_Id" type="LineEdit" parent="L1"]
+[node name="IdRecompensa" type="LineEdit" parent="L1" unique_id=1513570158]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="CheckBox_AutoId" type="CheckBox" parent="L1"]
-layout_mode = 2
-
-[node name="Label_Tipo" type="Label" parent="L1"]
+[node name="Label_Tipo" type="Label" parent="L1" unique_id=571239958]
 layout_mode = 2
 text = " | Tipo"
 
-[node name="OptionButton_Tipo" type="OptionButton" parent="L1"]
+[node name="TipoRecompensa" type="OptionButton" parent="L1" unique_id=1070276580]
 layout_mode = 2
 
-[node name="L2" type="HBoxContainer" parent="."]
+[node name="L2" type="HBoxContainer" parent="." unique_id=1196908692]
 layout_mode = 2
 
-[node name="Label_Titulo" type="Label" parent="L2"]
+[node name="Label_Titulo" type="Label" parent="L2" unique_id=1889022834]
 layout_mode = 2
 text = "Título"
 
-[node name="LineEdit_Titulo" type="LineEdit" parent="L2"]
+[node name="NombreRecompensa" type="LineEdit" parent="L2" unique_id=1493920874]
 custom_minimum_size = Vector2(886.71, 0)
 layout_mode = 2
 
-[node name="Label_Prioridad" type="Label" parent="L2"]
+[node name="Label_Prioridad" type="Label" parent="L2" unique_id=1488737071]
 layout_mode = 2
 text = "Prioridad"
 
-[node name="SpinBox_Prioridad" type="SpinBox" parent="L2"]
+[node name="SpinBox_Prioridad" type="SpinBox" parent="L2" unique_id=1818243948]
 layout_mode = 2
 max_value = 9.223372e+18
 
-[node name="L3" type="VBoxContainer" parent="."]
+[node name="L3" type="VBoxContainer" parent="." unique_id=1812422485]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Label_Titulo" type="Label" parent="L3"]
+[node name="Label_Titulo" type="Label" parent="L3" unique_id=1008244926]
 layout_mode = 2
 text = "Descripción"
 
-[node name="LineEdit_Titulo" type="LineEdit" parent="L3"]
+[node name="DescripcionReccompensa" type="LineEdit" parent="L3" unique_id=376596616]
 layout_mode = 2
 
-[node name="L4" type="VBoxContainer" parent="."]
+[node name="L4_Recompensas" type="VBoxContainer" parent="." unique_id=1463942585]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="L4"]
+[node name="ImprimirPorConsola" type="HBoxContainer" parent="L4_Recompensas" unique_id=1055740947]
+visible = false
 layout_mode = 2
 
-[node name="Label_Texto" type="Label" parent="L4/HBoxContainer"]
+[node name="Texto_" type="Label" parent="L4_Recompensas/ImprimirPorConsola" unique_id=1593688181]
 layout_mode = 2
 text = "Texto"
 
-[node name="LineEdit_Texto" type="LineEdit" parent="L4/HBoxContainer"]
+[node name="texto" type="LineEdit" parent="L4_Recompensas/ImprimirPorConsola" unique_id=391145029]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="Button_Guardar" type="Button" parent="."]
+[node name="botonGuardar" type="Button" parent="." unique_id=1038134063]
 layout_mode = 2
 text = "Guardar"
+
+[node name="avisoErrores" type="Label" parent="." unique_id=1451174686]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1

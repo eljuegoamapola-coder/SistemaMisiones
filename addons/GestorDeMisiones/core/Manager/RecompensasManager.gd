@@ -2,7 +2,8 @@ extends Node
 
 const RECOMPENSAS_POR_TIPO := {
 	"ImprimirPorConsola": preload("res://addons/GestorDeMisiones/core/Recompensas/ImprimirPorConsola.gd"),
-	"AbrirPuerta": preload("res://addons/GestorDeMisiones/core/Recompensas/AbrirPuerta.gd")
+	"AbrirPuerta": preload("res://addons/GestorDeMisiones/core/Recompensas/AbrirPuerta.gd"),
+	"RestarVidaMostrarla": preload("res://addons/GestorDeMisiones/core/Recompensas/RestarVidaMostrarla.gd")
 }
 
 # Llama a la funcion aplicar(data) de una recompensa con todos sus datos.
@@ -103,3 +104,41 @@ func aplicarRecompensasMision(idMision):
 		var recompensa_script = RECOMPENSAS_POR_TIPO[tipo]
 		var recompensa_instancia = recompensa_script.new()
 		aplicar_recompensa(recompensa_instancia, recompensa_data)
+
+func getIdRecompensasJson():
+	var resultado = []
+	if ResourceLoader.exists(varGlobales.jsonRecompensas):
+		var archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.READ)
+		if archivo != null:
+			var contenido = archivo.get_as_text()
+			var json = JSON.new()
+			var error = json.parse(contenido)
+
+			if error == OK:
+				var recompensasCatalogo = json.get_data()
+				for recompensaCatalogo in recompensasCatalogo:
+					resultado.append(recompensaCatalogo["id"])
+		else:
+			print("Error al abrir el archivo: ", archivo.get_error())
+	else:
+		print("Archivo no encontrado: ", varGlobales.jsonRecompensas)
+	print(resultado)
+	return resultado
+
+func setNuevaRecompensaEnJson(recompensa_json: Dictionary) -> bool:
+	if not ResourceLoader.exists(varGlobales.jsonRecompensas):
+		return false
+
+	var archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.READ)
+	var contenido = archivo.get_as_text()
+	archivo.close()
+	var todasLasRecompensas = JSON.parse_string(contenido)
+	todasLasRecompensas.append(recompensa_json)
+
+	archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.WRITE)
+	if archivo != null:
+		archivo.store_string(JSON.stringify(todasLasRecompensas, "\t", false))
+		archivo.close()
+		return true
+	else:
+		return false

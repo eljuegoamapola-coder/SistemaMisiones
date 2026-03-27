@@ -3,7 +3,7 @@ extends VBoxContainer
 @onready var tipo_objetivo: OptionButton = $L1/TipoObjetivo
 @onready var contenedor_objetivos: Node = $L4_Objetivos
 @onready var boton_guardar: Button = $Button_Guardar
-@onready var contenedor_coleccion: Node = $L4_Objetivos/Coleccion
+@onready var contenedor_coleccion: Node = $L4_Objetivos/coleccion
 @onready var idObjetivo: LineEdit = $L1/IdObjetivo
 @onready var nombreObjetivo: LineEdit = $L2/NombreObjetivo
 @onready var descripcionObjetivo: LineEdit = $L3/DescripcionObjetivo
@@ -73,35 +73,35 @@ func _on_boton_guardar_pressed() -> void:
 	agregar_campo_json(objetivo_json, "descripcion", descripcionObjetivo.text)
 
 	match tipo_seleccionado:
-		"Coleccion":
-			var tipo_id: LineEdit = $L4_Objetivos/Coleccion/tipoId
-			var cantidad: SpinBox = $L4_Objetivos/Coleccion/cantidad
-			var identificacion: OptionButton = $L4_Objetivos/Coleccion/identificacion
+		"coleccion":
+			var tipo_id: LineEdit = $L4_Objetivos/coleccion/tipoId
+			var cantidad: SpinBox = $L4_Objetivos/coleccion/cantidad
+			var identificacion: OptionButton = $L4_Objetivos/coleccion/identificacion
 			if identificacion.get_selected() == 1:
 				agregar_campo_json(objetivo_json, "tipoItem", tipo_id.text)
 			else:
 				agregar_campo_json(objetivo_json, "idItem", tipo_id.text)
 			agregar_campo_json(objetivo_json, "cantidad", utils.formatearNumeroAEntero(cantidad.value))
 
-		"Eliminacion":
-			var tipo_id: LineEdit = $L4_Objetivos/Eliminacion/tipoId
-			var cantidad: SpinBox = $L4_Objetivos/Eliminacion/cantidad
-			var identificacion: OptionButton = $L4_Objetivos/Eliminacion/identificacion
+		"eliminacion":
+			var tipo_id: LineEdit = $L4_Objetivos/eliminacion/tipoId
+			var cantidad: SpinBox = $L4_Objetivos/eliminacion/cantidad
+			var identificacion: OptionButton = $L4_Objetivos/eliminacion/identificacion
 			if identificacion.get_selected() == 1:
 				agregar_campo_json(objetivo_json, "tipoEnemigo", tipo_id.text)
 			else:
 				agregar_campo_json(objetivo_json, "idEnemigo", tipo_id.text)
 			agregar_campo_json(objetivo_json, "cantidad", utils.formatearNumeroAEntero(cantidad.value))
 
-		"Interaccion":
-			var idInteraccion: LineEdit = $L4_Objetivos/Interaccion/idInteraccion
-			agregar_campo_json(objetivo_json, "idInteraccion", idInteraccion.text)
+		"interaccion":
+			var idinteraccion: LineEdit = $L4_Objetivos/interaccion/idinteraccion
+			agregar_campo_json(objetivo_json, "idinteraccion", idinteraccion.text)
 
-		"Entrega":
-			var idEntrega: LineEdit = $L4_Objetivos/Entrega/idItemEntregar
-			var cantidad: SpinBox = $L4_Objetivos/Entrega/cantidadEntregar
-			var idReceptor: LineEdit = $L4_Objetivos/Entrega/idReceptor
-			agregar_campo_json(objetivo_json, "idItemEntregar", idEntrega.text)
+		"entrega":
+			var identrega: LineEdit = $L4_Objetivos/entrega/idItementregar
+			var cantidad: SpinBox = $L4_Objetivos/entrega/cantidadentregar
+			var idReceptor: LineEdit = $L4_Objetivos/entrega/idReceptor
+			agregar_campo_json(objetivo_json, "idItementregar", identrega.text)
 			agregar_campo_json(objetivo_json, "cantidad", utils.formatearNumeroAEntero(cantidad.value))
 			agregar_campo_json(objetivo_json, "idReceptor", idReceptor.text)
 	

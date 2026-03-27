@@ -1,16 +1,33 @@
 [
-    {
-        "id": "r1",
-        "icono": "res://addons/GestorDeMisiones/editor/icons/iconoImprimirPorConsola.png",
-        "tipo": "ImprimirPorConsola",
-        "texto": "MISION COMPLETADA: Has recolectado todas las gemas necesarias.",
-        "descripcion": "Esta recompensa se otorga al completar la misión de recolección de gemas. Felicidades por tu logro."
-    },
-    {
-        "id": "r2",
-        "icono": "res://addons/GestorDeMisiones/editor/icons/iconoImprimirPorConsola.png",
-        "tipo": "ImprimirPorConsola",
-        "texto": "MISION COMPLETADA 2: Has recolectado todas las gemas necesarias.",
-        "descripcion": "Esta recompensa se otorga al completar la misión de recolección de gemas. Felicidades por tu logro."
-    }
+	{
+		"id": "r1",
+		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoImprimirPorConsola.png",
+		"tipo": "ImprimirPorConsola",
+		"nombre": "Recompensa de Consola",
+		"texto": "MISION COMPLETADA: Has recolectado todas las gemas necesarias.",
+		"descripcion": "Esta recompensa se otorga al completar la misión de recolección de gemas. Felicidades por tu logro."
+	},
+	{
+		"id": "r2",
+		"nombre": "Recompensa de Restar Vida",
+		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoImprimirPorConsola.png",
+		"tipo": "RestarVidaMostrarla",
+		"descripcion": "Restamos vida y la imprimimos por consola.",
+		"vidaRestar": 20.0
+	},
+	{
+		"id": "obj_25277_9127",
+		"tipo": "ImprimirPorConsola",
+		"nombre": "recompensa prueba nombre",
+		"descripcion": "recompensa prueba des",
+		"texto": "texto a imprimir"
+	},
+	{
+		"id": "obj_14016_2255",
+		"tipo": "ImprimirPorConsola",
+		"nombre": "GEMA",
+		"descripcion": "ASDASD",
+		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoItemGemaRoja.png",
+		"texto": "DASASD"
+	}
 ]

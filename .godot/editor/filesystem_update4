@@ -1,4 +1,8 @@
+res://addons/GestorDeMisiones/core/Items/ItemRecogible.gd
+res://addons/GestorDeMisiones/core/Objetivos/coleccion.gd
+res://addons/GestorDeMisiones/defaults/misiones.json
 res://addons/GestorDeMisiones/editor/scripts/crear_objetivo_gui.gd
-res://addons/GestorDeMisiones/editor/scenes/CrearObjetivoGui.tscn
-res://addons/GestorDeMisiones/core/Manager/ObjetivosManager.gd
-res://addons/GestorDeMisiones/core/Utilidades.gd
+res://addons/GestorDeMisiones/core/Manager/RecompensasManager.gd
+res://addons/GestorDeMisiones/core/Recompensas/RestarVidaMostrarla.gd
+res://addons/GestorDeMisiones/demo/AvanzarMisionPrueba.tscn
+res://addons/GestorDeMisiones/editor/scripts/crear_recompensa_gui.gd

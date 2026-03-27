@@ -56,15 +56,15 @@ custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Coleccion" type="HBoxContainer" parent="L4_Objetivos" unique_id=1970977684]
+[node name="coleccion" type="HBoxContainer" parent="L4_Objetivos" unique_id=1970977684]
 visible = false
 layout_mode = 2
 
-[node name="Identificacion_" type="Label" parent="L4_Objetivos/Coleccion" unique_id=1130480612]
+[node name="Identificacion_" type="Label" parent="L4_Objetivos/coleccion" unique_id=1130480612]
 layout_mode = 2
 text = "Identificación objeto/s"
 
-[node name="identificacion" type="OptionButton" parent="L4_Objetivos/Coleccion" unique_id=1030027160]
+[node name="identificacion" type="OptionButton" parent="L4_Objetivos/coleccion" unique_id=1030027160]
 layout_mode = 2
 item_count = 2
 popup/item_0/text = "ID"
@@ -72,15 +72,15 @@ popup/item_0/id = 0
 popup/item_1/text = "tipo"
 popup/item_1/id = 1
 
-[node name="tipoId" type="LineEdit" parent="L4_Objetivos/Coleccion" unique_id=812680464]
+[node name="tipoId" type="LineEdit" parent="L4_Objetivos/coleccion" unique_id=812680464]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="Cantidad_" type="Label" parent="L4_Objetivos/Coleccion" unique_id=1198329336]
+[node name="Cantidad_" type="Label" parent="L4_Objetivos/coleccion" unique_id=1198329336]
 layout_mode = 2
 text = "Cantidad"
 
-[node name="cantidad" type="SpinBox" parent="L4_Objetivos/Coleccion" unique_id=246934066]
+[node name="cantidad" type="SpinBox" parent="L4_Objetivos/coleccion" unique_id=246934066]
 layout_mode = 2
 max_value = 9.223372e+18
 
