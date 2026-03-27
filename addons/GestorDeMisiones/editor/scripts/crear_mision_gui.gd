@@ -6,26 +6,90 @@ extends VBoxContainer
 var selector_icono: FileDialog
 var ruta_icono_seleccionado: String = ""
 
+@onready var idMision: LineEdit = $L1/IdMision
+@onready var estadoMision: OptionButton = $L1/EstadoMision
+@onready var categoriaMision: OptionButton = $L1/CategoriaMision
+@onready var tiempoLimiteMision: SpinBox = $L1/TiempoLimiteMision
+@onready var nombreMision: LineEdit = $L2/NombreMision
+@onready var checkSinLimiteTiempo: CheckBox = $L1/CheckSinLimiteTiempo
+@onready var descripcionMision: LineEdit = $L3/DescripcionMision
+@onready var listaObjetivos: ItemList = get_node_or_null("L4_Objetivos_Recompensas/Objetivos/ListaObjetivos")
+@onready var listaRecompensas: ItemList = get_node_or_null("L4_Objetivos_Recompensas/Recompensas/ListadoRecompensas")
+@onready var prioridadMision: SpinBox = get_node_or_null("L1/PrioridadMision")
+@onready var botonGuardar: Button = $BotonGuardar
+@onready var avisoErrores: Label = get_node_or_null("avisoErrores")
 func _ready() -> void:
 	_inicializar_selector_icono()
+	botonGuardar.pressed.connect(_on_boton_guardar_pressed)
 	if not botonIcono.pressed.is_connected(_on_boton_icono_pressed):
 		botonIcono.pressed.connect(_on_boton_icono_pressed)
 
+	if not checkSinLimiteTiempo.toggled.is_connected(_on_check_sin_limite_toggled):
+		checkSinLimiteTiempo.toggled.connect(_on_check_sin_limite_toggled)
+
 	for tipo_mision in varGlobales.listaTiposMisiones.keys():
-		$L1/OptionButton_Categoria.add_item(tipo_mision)
+		categoriaMision.add_item(tipo_mision)
+	categoriaMision.select(-1)
+
 	for estado_mision in varGlobales.listaEstadosMisiones:
-		$L1/OptionButton_Estado.add_item(estado_mision)
+		estadoMision.add_item(estado_mision)
 
 	var objetivos = objetivosManager.getIdYNombreObjetivosJson()
 	for objetivo in objetivos:
 		var icono_objetivo = _cargar_icono(str(objetivo.get("icono", "")))
-		$L4_Objetivos_Recompensas/Objetivos/ItemList_Objetivos.add_item(str(objetivo.get("id", "")) + " - " + str(objetivo.get("nombre", "Sin nombre")), icono_objetivo)
+		if listaObjetivos != null:
+			listaObjetivos.add_item(str(objetivo.get("id", "")) + " - " + str(objetivo.get("nombre", "Sin nombre")), icono_objetivo)
 	
 	var recompensas = recompensasManager.getIdYDescripcionRecompensasJson()
 	for recompensa in recompensas:
 		var icono_recompensa = _cargar_icono(str(recompensa.get("icono", "")))
-		$L4_Objetivos_Recompensas/Recompensas/ItemList_Recompensas.add_item(str(recompensa.get("id", "")) + " - " + str(recompensa.get("descripcion", "Sin descripcion")), icono_recompensa)
+		if listaRecompensas != null:
+			listaRecompensas.add_item(str(recompensa.get("id", "")) + " - " + str(recompensa.get("descripcion", "Sin descripcion")), icono_recompensa)
 
+
+func _on_boton_guardar_pressed() -> void:
+	var idEscrito := idMision.text != ""
+	var idMisionText = idMision.text if idEscrito else utils.generarIdAutomatico()
+	var todoId = misionManager.getIdMisionesJson()
+
+	if idEscrito and idMisionText in todoId:
+		if avisoErrores != null:
+			avisoErrores.text = "El ID '" + idMisionText + "' ya existe. Por favor, introduce un ID diferente."
+		return
+
+	while idMisionText in todoId:
+		idMisionText = utils.generarIdAutomatico()
+
+	var mision_json: Dictionary = {}
+	agregar_campo_json(mision_json, "id", idMisionText)
+	agregar_campo_json(mision_json, "titulo", nombreMision.text)
+	agregar_campo_json(mision_json, "descripcion", descripcionMision.text)
+	agregar_campo_json(mision_json, "icono", botonIcono.icon.resource_path if botonIcono.icon else "")
+	var tiempo_valor = -7.0 if checkSinLimiteTiempo.button_pressed else (tiempoLimiteMision.value if tiempoLimiteMision != null else -7.0)
+	agregar_campo_json(mision_json, "tiempoLimiteSegundos", tiempo_valor)
+	agregar_campo_json(mision_json, "categoria", categoriaMision.get_item_text(categoriaMision.get_selected()))
+	agregar_campo_json(mision_json, "prioridad", prioridadMision.value if prioridadMision != null else 0.0)
+	agregar_campo_json(mision_json, "estado", estadoMision.get_item_text(estadoMision.get_selected()))
+	agregar_campo_json(mision_json, "tiempoRestante", tiempo_valor)
+
+	var objetivos_array = []
+	for id_obj in getObjetivosSeleccionados():
+		objetivos_array.append({"id": id_obj, "progreso": 0, "completado": false})
+	agregar_campo_json(mision_json, "objetivos", objetivos_array)
+
+	var recompensas_array = []
+	for id_rec in getRecompensasSeleccionadas():
+		recompensas_array.append({"id": id_rec, "estado": "pendiente"})
+	agregar_campo_json(mision_json, "recompensas", recompensas_array)
+
+	if avisoErrores != null:
+		avisoErrores.text = ""
+	if comprobarCamposRequeridos(mision_json):
+		misionManager.setNuevaMisionEnJson(mision_json)
+
+func _on_check_sin_limite_toggled(checked: bool) -> void:
+	if tiempoLimiteMision != null:
+		tiempoLimiteMision.editable = not checked
 
 func _inicializar_selector_icono() -> void:
 	selector_icono = FileDialog.new()
@@ -71,12 +135,28 @@ func _cargar_textura_desde_archivo(ruta_archivo: String) -> Texture2D:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if listaObjetivos == null or listaRecompensas == null:
+		return
 	var seleccionados = getObjetivosSeleccionados()
 	$Label_ObjetivosSeleccionados.text = "Objetivos seleccionados (%s) -> %s" % [seleccionados.size(), ", ".join(seleccionados)]
 	var recompensas_sel = getRecompensasSeleccionadas()
 	$Label_RecompensasSeleccionadas.text = "Recompensas seleccionadas (%s) -> %s" % [recompensas_sel.size(), ", ".join(recompensas_sel)]
 	pass
 
+
+func agregar_campo_json(mision_json: Dictionary, clave: String, valor: Variant) -> void:
+	mision_json[clave] = valor
+
+func comprobarCamposRequeridos(mision_json: Dictionary) -> bool:
+	var campos_vacios: Array = []
+	for campo in ["id", "titulo", "descripcion", "categoria", "estado"]:
+		if str(mision_json.get(campo, "")).strip_edges() == "":
+			campos_vacios.append(campo)
+	if campos_vacios.size() > 0:
+		if avisoErrores != null:
+			avisoErrores.text = "Campos obligatorios vacíos: " + ", ".join(campos_vacios)
+		return false
+	return true
 
 func _cargar_icono(ruta_icono: String) -> Texture2D:
 	var ruta_resuelta = ruta_icono if ruta_icono != "" else varGlobales.imgError
@@ -86,16 +166,22 @@ func _cargar_icono(ruta_icono: String) -> Texture2D:
 
 func getObjetivosSeleccionados() -> Array:
 	var seleccionados = []
-	for indice in $L4_Objetivos_Recompensas/Objetivos/ItemList_Objetivos.get_selected_items():
-		var texto_item = $L4_Objetivos_Recompensas/Objetivos/ItemList_Objetivos.get_item_text(indice)
+	if listaObjetivos == null:
+		return seleccionados
+
+	for indice in listaObjetivos.get_selected_items():
+		var texto_item = listaObjetivos.get_item_text(indice)
 		var id_objetivo = texto_item.split(" - ")[0]
 		seleccionados.append(id_objetivo)
 	return seleccionados
 
 func getRecompensasSeleccionadas() -> Array:
 	var seleccionados = []
-	for indice in $L4_Objetivos_Recompensas/Recompensas/ItemList_Recompensas.get_selected_items():
-		var texto_item = $L4_Objetivos_Recompensas/Recompensas/ItemList_Recompensas.get_item_text(indice)
+	if listaRecompensas == null:
+		return seleccionados
+
+	for indice in listaRecompensas.get_selected_items():
+		var texto_item = listaRecompensas.get_item_text(indice)
 		var id_recompensa = texto_item.split(" - ")[0]
 		seleccionados.append(id_recompensa)
 	return seleccionados

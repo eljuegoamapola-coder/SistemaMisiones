@@ -22,5 +22,29 @@
 		],
 		"estado": "completada",
 		"tiempoRestante": -7.0
+	},
+	{
+		"id": "dsffdsf",
+		"titulo": "sdfsdf",
+		"descripcion": "dsfsdf",
+		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoError.png",
+		"tiempoLimiteSegundos": -7.0,
+		"categoria": "Recolección",
+		"prioridad": 0.0,
+		"estado": "activo",
+		"tiempoRestante": -7.0,
+		"objetivos": [
+			{
+				"id": "obj_27372_7866",
+				"progreso": 0,
+				"completado": false
+			}
+		],
+		"recompensas": [
+			{
+				"id": "obj_14016_2255",
+				"estado": "pendiente"
+			}
+		]
 	}
 ]

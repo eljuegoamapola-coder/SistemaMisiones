@@ -12,7 +12,7 @@ var imgError = "res://addons/GestorDeMisiones/editor/icons/iconoError.png"
 var listaTiposMisiones = {
     "Recolección" : "res://addons/GestorDeMisiones/core/Misiones/Recoleccion.gd",
 }
-var listaEstadosMisiones = ["bloqueada", "activo", "completada", "fallida"]
+var listaEstadosMisiones = ["activo", "bloqueada", "completada", "fallida"]
 
 # Estadisticas
 var vida = 100

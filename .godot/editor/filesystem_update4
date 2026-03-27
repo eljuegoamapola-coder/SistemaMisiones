@@ -6,3 +6,8 @@ res://addons/GestorDeMisiones/core/Manager/RecompensasManager.gd
 res://addons/GestorDeMisiones/core/Recompensas/RestarVidaMostrarla.gd
 res://addons/GestorDeMisiones/demo/AvanzarMisionPrueba.tscn
 res://addons/GestorDeMisiones/editor/scripts/crear_recompensa_gui.gd
+res://addons/GestorDeMisiones/editor/scenes/CrearMisionGui.tscn
+res://addons/GestorDeMisiones/editor/scripts/crear_mision_gui.gd
+res://addons/GestorDeMisiones/core/Manager/MissionManager.gd
+res://addons/GestorDeMisiones/core/variablesGlobales.gd
+res://addons/GestorDeMisiones/editor/scenes/EscenaPrincipal.tscn

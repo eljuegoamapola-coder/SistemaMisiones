@@ -202,3 +202,33 @@ func comprobarSiMisionTieneEstarActiva():
 		if archivo != null:
 			archivo.store_string(JSON.stringify(todasLasMisiones, "\t", false))
 			archivo.close()
+
+# Retorna un array con el id de todas las misiones del JSON
+func getIdMisionesJson() -> Array:
+	var resultado = []
+	if not ResourceLoader.exists(varGlobales.jsonMisiones):
+		return resultado
+	var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
+	if archivo == null:
+		return resultado
+	var json = JSON.new()
+	if json.parse(archivo.get_as_text()) == OK:
+		for mision in json.get_data():
+			resultado.append(mision["id"])
+	return resultado
+
+# Agrega una nueva misión al JSON de misiones
+func setNuevaMisionEnJson(mision_json: Dictionary) -> bool:
+	if not ResourceLoader.exists(varGlobales.jsonMisiones):
+		return false
+	var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
+	var contenido = archivo.get_as_text()
+	archivo.close()
+	var todasLasMisiones = JSON.parse_string(contenido)
+	todasLasMisiones.append(mision_json)
+	archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.WRITE)
+	if archivo != null:
+		archivo.store_string(JSON.stringify(todasLasMisiones, "\t", false))
+		archivo.close()
+		return true
+	return false

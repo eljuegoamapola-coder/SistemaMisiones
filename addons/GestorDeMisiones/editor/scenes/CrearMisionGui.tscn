@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxnpgk2eyp0kq"]
+[gd_scene format=3 uid="uid://cxnpgk2eyp0kq"]
 
 [ext_resource type="Texture2D" uid="uid://cfflagmp4oxb8" path="res://addons/GestorDeMisiones/editor/icons/iconoError.png" id="1_emoal"]
 [ext_resource type="Script" uid="uid://on8t8p53odcj" path="res://addons/GestorDeMisiones/editor/scripts/crear_mision_gui.gd" id="1_t6s22"]
 
-[node name="CrearMisionGui" type="VBoxContainer"]
+[node name="CrearMisionGui" type="VBoxContainer" unique_id=597106390]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,122 +14,128 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_t6s22")
 
-[node name="Button_IconoMision" type="Button" parent="."]
+[node name="Button_IconoMision" type="Button" parent="." unique_id=2057000380]
 layout_mode = 2
 icon = ExtResource("1_emoal")
 flat = true
 
-[node name="L1" type="HBoxContainer" parent="."]
+[node name="L1" type="HBoxContainer" parent="." unique_id=2127908341]
 layout_mode = 2
 
-[node name="Label_Id" type="Label" parent="L1"]
+[node name="Label_Id" type="Label" parent="L1" unique_id=1508909959]
 layout_mode = 2
 text = "Id"
 
-[node name="LineEdit_Id" type="LineEdit" parent="L1"]
+[node name="IdMision" type="LineEdit" parent="L1" unique_id=217631128]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="CheckBox_AutoId" type="CheckBox" parent="L1"]
-layout_mode = 2
-
-[node name="Label_Estado" type="Label" parent="L1"]
+[node name="Label_Estado" type="Label" parent="L1" unique_id=1581434859]
 layout_mode = 2
 text = " | Estado"
 
-[node name="OptionButton_Estado" type="OptionButton" parent="L1"]
+[node name="EstadoMision" type="OptionButton" parent="L1" unique_id=941341201]
 layout_mode = 2
 
-[node name="Label_Categoria" type="Label" parent="L1"]
+[node name="Label_Categoria" type="Label" parent="L1" unique_id=57261301]
 layout_mode = 2
 text = " | Categoría"
 
-[node name="OptionButton_Categoria" type="OptionButton" parent="L1"]
+[node name="CategoriaMision" type="OptionButton" parent="L1" unique_id=1827801425]
 layout_mode = 2
 
-[node name="Label_TiempoLimite" type="Label" parent="L1"]
+[node name="Label_TiempoLimite" type="Label" parent="L1" unique_id=984302157]
 layout_mode = 2
 text = " | Tiempo límite (en segundos)"
 
-[node name="SpinBox_TiempoLimite" type="SpinBox" parent="L1"]
+[node name="TiempoLimiteMision" type="SpinBox" parent="L1" unique_id=2113310736]
 custom_minimum_size = Vector2(213.715, 0)
 layout_mode = 2
 max_value = 9.223372e+18
 
-[node name="L2" type="HBoxContainer" parent="."]
+[node name="CheckSinLimiteTiempo" type="CheckBox" parent="L1" unique_id=1353879362]
 layout_mode = 2
 
-[node name="Label_Titulo" type="Label" parent="L2"]
+[node name="L2" type="HBoxContainer" parent="." unique_id=159520326]
 layout_mode = 2
-text = "Título"
 
-[node name="LineEdit_Titulo" type="LineEdit" parent="L2"]
+[node name="Label_Titulo" type="Label" parent="L2" unique_id=322159164]
+layout_mode = 2
+text = "Nombre"
+
+[node name="NombreMision" type="LineEdit" parent="L2" unique_id=1698223033]
 custom_minimum_size = Vector2(886.71, 0)
 layout_mode = 2
 
-[node name="Label_Prioridad" type="Label" parent="L2"]
+[node name="Label_Prioridad" type="Label" parent="L2" unique_id=1385943272]
 layout_mode = 2
 text = "Prioridad"
 
-[node name="SpinBox_Prioridad" type="SpinBox" parent="L2"]
+[node name="SinTiempoLimiteMision" type="SpinBox" parent="L2" unique_id=1999315906]
 layout_mode = 2
 max_value = 9.223372e+18
 
-[node name="L3" type="VBoxContainer" parent="."]
+[node name="L3" type="VBoxContainer" parent="." unique_id=84870410]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Label_Titulo" type="Label" parent="L3"]
+[node name="Label_Titulo" type="Label" parent="L3" unique_id=1587036261]
 layout_mode = 2
 text = "Descripción"
 
-[node name="LineEdit_Titulo" type="LineEdit" parent="L3"]
+[node name="DescripcionMision" type="LineEdit" parent="L3" unique_id=1116045734]
 layout_mode = 2
 
-[node name="L4_Objetivos_Recompensas" type="HBoxContainer" parent="."]
+[node name="L4_Objetivos_Recompensas" type="HBoxContainer" parent="." unique_id=1687327337]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 alignment = 1
 
-[node name="Objetivos" type="VBoxContainer" parent="L4_Objetivos_Recompensas"]
+[node name="Objetivos" type="VBoxContainer" parent="L4_Objetivos_Recompensas" unique_id=1376628513]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label_Obtetivos" type="Label" parent="L4_Objetivos_Recompensas/Objetivos"]
+[node name="Label_Obtetivos" type="Label" parent="L4_Objetivos_Recompensas/Objetivos" unique_id=1297555302]
 layout_mode = 2
 text = "Objetivos"
 
-[node name="ItemList_Objetivos" type="ItemList" parent="L4_Objetivos_Recompensas/Objetivos"]
+[node name="ListaObjetivos" type="ItemList" parent="L4_Objetivos_Recompensas/Objetivos" unique_id=1722444200]
 custom_minimum_size = Vector2(0, 42.49)
 layout_mode = 2
 size_flags_vertical = 3
 select_mode = 2
 icon_scale = 0.5
 
-[node name="Recompensas" type="VBoxContainer" parent="L4_Objetivos_Recompensas"]
+[node name="Recompensas" type="VBoxContainer" parent="L4_Objetivos_Recompensas" unique_id=205912865]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label_Recompensas" type="Label" parent="L4_Objetivos_Recompensas/Recompensas"]
+[node name="Label_Recompensas" type="Label" parent="L4_Objetivos_Recompensas/Recompensas" unique_id=1162479644]
 layout_mode = 2
 text = "Recompensas"
 
-[node name="ItemList_Recompensas" type="ItemList" parent="L4_Objetivos_Recompensas/Recompensas"]
+[node name="ListadoRecompensas" type="ItemList" parent="L4_Objetivos_Recompensas/Recompensas" unique_id=1389871867]
 custom_minimum_size = Vector2(0, 42.49)
 layout_mode = 2
 size_flags_vertical = 3
 select_mode = 2
 icon_scale = 0.5
 
-[node name="Label_ObjetivosSeleccionados" type="Label" parent="."]
+[node name="Label_ObjetivosSeleccionados" type="Label" parent="." unique_id=271197138]
 layout_mode = 2
-text = "Objetivos seleccionados -> "
+text = "Objetivos seleccionados (0) -> "
 
-[node name="Label_RecompensasSeleccionadas" type="Label" parent="."]
+[node name="Label_RecompensasSeleccionadas" type="Label" parent="." unique_id=1064986174]
 layout_mode = 2
-text = "Recompensas seleccionadas -> "
+text = "Recompensas seleccionadas (0) -> "
 
-[node name="Button_GuardarMision" type="Button" parent="."]
+[node name="BotonGuardar" type="Button" parent="." unique_id=1068437740]
 layout_mode = 2
 text = "GUARDAR"
+
+[node name="avisoErrores" type="Label" parent="." unique_id=1180417398]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
