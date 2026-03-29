@@ -61,7 +61,7 @@ func _on_boton_guardar_pressed() -> void:
 	var selected_index := tipo_recompensa.get_selected()
 
 	var idEscrito := idRecompensa.text != ""
-	var idRecompensaText = idRecompensa.text if idEscrito else utils.generarIdAutomatico()
+	var idRecompensaText = idRecompensa.text if idEscrito else "rec_" + utils.generarIdAutomatico()
 	var todoId = recompensasManager.getIdRecompensasJson()
 
 	if idEscrito and idRecompensaText in todoId:
@@ -69,7 +69,7 @@ func _on_boton_guardar_pressed() -> void:
 		return
 
 	while idRecompensaText in todoId:
-		idRecompensaText = utils.generarIdAutomatico()
+		idRecompensaText = "rec_" + utils.generarIdAutomatico()
 
 	var tipo_seleccionado := tipo_recompensa.get_item_text(selected_index)
 	var recompensa_json: Dictionary = {}
@@ -107,7 +107,6 @@ func comprobarCamposRequeridos(recompensa_json: Dictionary) -> bool:
 
 func _on_boton_icono_pressed() -> void:
 	selector_icono.popup_centered_ratio(0.8)
-	print(selector_icono.get_current_dir())
 
 func _inicializar_selector_icono() -> void:
 	selector_icono = FileDialog.new()

@@ -55,7 +55,7 @@ func _on_boton_guardar_pressed() -> void:
 	var selected_index := tipo_objetivo.get_selected()
 
 	var idEscrito := idObjetivo.text != ""
-	var idObjetivoText = idObjetivo.text if idEscrito else utils.generarIdAutomatico()
+	var idObjetivoText = idObjetivo.text if idEscrito else "obj_" + utils.generarIdAutomatico()
 	var todoId = objetivosManager.getIdObjetivosJson()
 
 	if idEscrito and idObjetivoText in todoId:
@@ -63,7 +63,7 @@ func _on_boton_guardar_pressed() -> void:
 		return
 
 	while idObjetivoText in todoId:
-		idObjetivoText = utils.generarIdAutomatico()
+		idObjetivoText = "obj_" + utils.generarIdAutomatico()
 
 	var tipo_seleccionado := tipo_objetivo.get_item_text(selected_index)
 	var objetivo_json: Dictionary = {}

@@ -5,6 +5,6 @@
 		"nombre": "Colecciona 3 gemas",
 		"descripcion": "Colecciona 3 gemas",
 		"idItem": "GemaRoja1",
-		"cantidad": 3
+		"cantidad": 3.0
 	}
 ]

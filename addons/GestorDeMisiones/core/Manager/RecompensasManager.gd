@@ -1,9 +1,7 @@
 extends Node
 
 const RECOMPENSAS_POR_TIPO := {
-	"ImprimirPorConsola": preload("res://addons/GestorDeMisiones/core/Recompensas/ImprimirPorConsola.gd"),
-	"AbrirPuerta": preload("res://addons/GestorDeMisiones/core/Recompensas/AbrirPuerta.gd"),
-	"RestarVidaMostrarla": preload("res://addons/GestorDeMisiones/core/Recompensas/RestarVidaMostrarla.gd")
+	"ImprimirPorConsola": preload("res://addons/GestorDeMisiones/core/Recompensas/ImprimirPorConsola.gd")
 }
 
 # Llama a la funcion aplicar(data) de una recompensa con todos sus datos.
@@ -23,9 +21,6 @@ func getIdYDescripcionRecompensasJson():
 				var recompensasCatalogo = json.get_data()
 				for recompensaCatalogo in recompensasCatalogo:
 					resultado.append({"id": recompensaCatalogo["id"],"descripcion": recompensaCatalogo.get("descripcion", ""), "icono": recompensaCatalogo.get("icono", "")})
-			else:print("Error al parsear JSON: ", json.get_error_string())
-		else:print("Error al abrir el archivo: ", archivo.get_error())
-	else:print("Archivo no encontrado: ", varGlobales.jsonRecompensas)
 
 	return resultado
 
@@ -54,13 +49,6 @@ func getRecompensaMisionDesdeJson(idMision):
 							recompensaCompleta["estado"] = recompensaMision.get("estado")
 							recompensasCompletas.append(recompensaCompleta)
 							break
-			else:
-				print("Error al parsear JSON: ", json.get_error_string())
-		else:
-			print("Error al abrir el archivo: ", archivo.get_error())
-	else:
-		print("Archivo no encontrado: ", varGlobales.jsonRecompensas)
-	
 	return recompensasCompletas
 
 func getRecompensasDesdeJsonConformatoJson() -> String:
@@ -76,13 +64,10 @@ func getRecompensasDesdeJsonConformatoJson() -> String:
 			if error == OK:
 				recompensas = json.get_data()
 			else:
-				print("Error al parsear JSON: ", json.get_error_string())
 				return "[]"
 		else:
-			print("Error al abrir el archivo: ", varGlobales.jsonRecompensas)
 			return "[]"
 	else:
-		print("Archivo no encontrado: ", varGlobales.jsonRecompensas)
 		return "[]"
 
 	# Retorna un JSON legible con indentacion de 4 espacios.
@@ -98,7 +83,6 @@ func aplicarRecompensasMision(idMision):
 
 		var tipo = str(recompensa_data.get("tipo", ""))
 		if not RECOMPENSAS_POR_TIPO.has(tipo):
-			print("Tipo de recompensa no soportado: ", tipo)
 			continue
 
 		var recompensa_script = RECOMPENSAS_POR_TIPO[tipo]
@@ -118,11 +102,6 @@ func getIdRecompensasJson():
 				var recompensasCatalogo = json.get_data()
 				for recompensaCatalogo in recompensasCatalogo:
 					resultado.append(recompensaCatalogo["id"])
-		else:
-			print("Error al abrir el archivo: ", archivo.get_error())
-	else:
-		print("Archivo no encontrado: ", varGlobales.jsonRecompensas)
-	print(resultado)
 	return resultado
 
 func setNuevaRecompensaEnJson(recompensa_json: Dictionary) -> bool:

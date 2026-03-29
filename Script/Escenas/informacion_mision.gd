@@ -22,7 +22,6 @@ func pintarInformacionMision(mision_id):
 	var informacion = misionManager.getInformacionMisionCompleta(mision_id)
 	
 	if informacion.is_empty():
-		print("No se encontró la misión: ", mision_id)
 		return
 
 	icono_mision.texture = load(informacion.get("icono", "res://resources/iconoMisionGemas_01.png"))

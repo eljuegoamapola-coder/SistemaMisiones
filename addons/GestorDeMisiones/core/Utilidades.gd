@@ -17,4 +17,4 @@ func formSegundosAHorasMinutosSegundos(segundos):
 func generarIdAutomatico() -> String:
 	var timestamp: int = Time.get_ticks_msec()
 	var random_part := randi() % 10000
-	return "obj_" + str(timestamp) + "_" + str(random_part)
+	return str(timestamp) + "_" + str(random_part)

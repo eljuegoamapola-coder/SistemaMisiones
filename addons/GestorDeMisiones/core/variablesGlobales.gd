@@ -14,5 +14,3 @@ var listaTiposMisiones = {
 }
 var listaEstadosMisiones = ["activo", "bloqueada", "completada", "fallida"]
 
-# Estadisticas
-var vida = 100

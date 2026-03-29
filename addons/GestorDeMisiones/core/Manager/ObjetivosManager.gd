@@ -27,10 +27,6 @@ func getObjetivosMisionObj(idMision):
 						objetivoBase["completado"] = obj["completado"]
 						objetivoBase["cantidad"] = utils.formatearNumeroAEntero(objetivoBase.get("cantidad", 1))
 						objetivosFormateados.append(objetivoBase)
-					else:print("Objetivo no encontrado en objetivos.json: ", obj["id"])
-			else:print("Error al parsear JSON: ", json.get_error_string())
-		else:print("Error al abrir el archivo: ", archivo.get_error())
-	else:print("Archivo no encontrado: ", varGlobales.jsonObjetivos)
 
 
 	return objetivosFormateados
@@ -48,9 +44,6 @@ func getIdYNombreObjetivosJson():
 				var objetivosCatalogo = json.get_data()
 				for objetivoCatalogo in objetivosCatalogo:
 					resultado.append({"id": objetivoCatalogo["id"], "nombre": objetivoCatalogo["nombre"], "icono": objetivoCatalogo.get("icono", "")})
-			else:print("Error al parsear JSON: ", json.get_error_string())
-		else:print("Error al abrir el archivo: ", archivo.get_error())
-	else:print("Archivo no encontrado: ", varGlobales.jsonObjetivos)
 
 	return resultado
 
@@ -67,8 +60,6 @@ func getIdObjetivosJson():
 				var objetivosCatalogo = json.get_data()
 				for objetivoCatalogo in objetivosCatalogo:
 					resultado.append(objetivoCatalogo["id"])
-	print(resultado);
-
 	return resultado
 
 func getObjetivosDesdeJsonConformatoJson() -> String:
@@ -84,13 +75,10 @@ func getObjetivosDesdeJsonConformatoJson() -> String:
 			if error == OK:
 				objetivos = json.get_data()
 			else:
-				print("Error al parsear JSON: ", json.get_error_string())
 				return "[]"
 		else:
-			print("Error al abrir el archivo: ", varGlobales.jsonObjetivos)
 			return "[]"
 	else:
-		print("Archivo no encontrado: ", varGlobales.jsonObjetivos)
 		return "[]"
 
 	# Retorna un JSON legible con indentacion de 4 espacios.

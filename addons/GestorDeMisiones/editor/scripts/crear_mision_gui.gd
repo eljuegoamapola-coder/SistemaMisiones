@@ -46,10 +46,24 @@ func _ready() -> void:
 		if listaRecompensas != null:
 			listaRecompensas.add_item(str(recompensa.get("id", "")) + " - " + str(recompensa.get("descripcion", "Sin descripcion")), icono_recompensa)
 
+	if listaObjetivos != null:
+		if not listaObjetivos.item_selected.is_connected(_on_lista_item_selected):
+			listaObjetivos.item_selected.connect(_on_lista_item_selected)
+		if not listaObjetivos.multi_selected.is_connected(_on_lista_multi_selected):
+			listaObjetivos.multi_selected.connect(_on_lista_multi_selected)
+
+	if listaRecompensas != null:
+		if not listaRecompensas.item_selected.is_connected(_on_lista_item_selected):
+			listaRecompensas.item_selected.connect(_on_lista_item_selected)
+		if not listaRecompensas.multi_selected.is_connected(_on_lista_multi_selected):
+			listaRecompensas.multi_selected.connect(_on_lista_multi_selected)
+
+	_actualizar_labels_seleccion()
+
 
 func _on_boton_guardar_pressed() -> void:
 	var idEscrito := idMision.text != ""
-	var idMisionText = idMision.text if idEscrito else utils.generarIdAutomatico()
+	var idMisionText = idMision.text if idEscrito else "mso_" + utils.generarIdAutomatico()
 	var todoId = misionManager.getIdMisionesJson()
 
 	if idEscrito and idMisionText in todoId:
@@ -58,7 +72,7 @@ func _on_boton_guardar_pressed() -> void:
 		return
 
 	while idMisionText in todoId:
-		idMisionText = utils.generarIdAutomatico()
+		idMisionText = "mso_" + utils.generarIdAutomatico()
 
 	var mision_json: Dictionary = {}
 	agregar_campo_json(mision_json, "id", idMisionText)
@@ -108,8 +122,6 @@ func _inicializar_selector_icono() -> void:
 
 func _on_boton_icono_pressed() -> void:
 	selector_icono.popup_centered_ratio(0.8)
-	print(selector_icono.get_current_dir())
-
 
 func _on_icono_seleccionado(ruta_archivo: String) -> void:
 	ruta_icono_seleccionado = ruta_archivo
@@ -132,16 +144,21 @@ func _cargar_textura_desde_archivo(ruta_archivo: String) -> Texture2D:
 		return null
 	return ImageTexture.create_from_image(imagen)
 
+func _on_lista_item_selected(_index: int) -> void:
+	_actualizar_labels_seleccion()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+
+func _on_lista_multi_selected(_index: int, _selected: bool) -> void:
+	_actualizar_labels_seleccion()
+
+
+func _actualizar_labels_seleccion() -> void:
 	if listaObjetivos == null or listaRecompensas == null:
 		return
 	var seleccionados = getObjetivosSeleccionados()
 	$Label_ObjetivosSeleccionados.text = "Objetivos seleccionados (%s) -> %s" % [seleccionados.size(), ", ".join(seleccionados)]
 	var recompensas_sel = getRecompensasSeleccionadas()
 	$Label_RecompensasSeleccionadas.text = "Recompensas seleccionadas (%s) -> %s" % [recompensas_sel.size(), ", ".join(recompensas_sel)]
-	pass
 
 
 func agregar_campo_json(mision_json: Dictionary, clave: String, valor: Variant) -> void:

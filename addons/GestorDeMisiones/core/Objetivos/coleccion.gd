@@ -24,7 +24,6 @@ func aumentarProgreso(id_mision, cantidad):
 	
 	var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
 	if archivo == null:
-		print("Error al abrir misiones.json")
 		return
 		
 	var contenido = archivo.get_as_text()

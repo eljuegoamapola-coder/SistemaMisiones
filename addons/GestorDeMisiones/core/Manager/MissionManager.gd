@@ -16,12 +16,6 @@ func getMisionesActivasDesdeJson():
 				for m in misionesArray:
 					if m["estado"] == "activo":
 						misiones.append(m)
-			else:
-				print("Error al parsear JSON: ", json.get_error_string())
-		else:
-			print("Error al abrir el archivo: ", archivo.get_error())
-	else:
-		print("Archivo no encontrado: ", varGlobales.jsonMisiones)
 	return misiones
 
 func getMisionesDesdeJsonConformatoJson() -> String:
@@ -37,13 +31,10 @@ func getMisionesDesdeJsonConformatoJson() -> String:
 			if error == OK:
 				misiones = json.get_data()
 			else:
-				print("Error al parsear JSON: ", json.get_error_string())
 				return "[]"
 		else:
-			print("Error al abrir el archivo: ", varGlobales.jsonMisiones)
 			return "[]"
 	else:
-		print("Archivo no encontrado: ", varGlobales.jsonMisiones)
 		return "[]"
 
 	# Retorna un JSON legible con indentacion de 4 espacios.
@@ -61,12 +52,6 @@ func getMisionesDesdeJsonFormJson():
 
 			if error == OK:
 				misiones = json.get_data()
-			else:
-				print("Error al parsear JSON: ", json.get_error_string())
-		else:
-			print("Error al abrir el archivo: ", archivo.get_error())
-	else:
-		print("Archivo no encontrado: ", varGlobales.jsonMisiones)
 	return misiones
 
 # Retorna un array con el id de todas las misiones activas
@@ -137,13 +122,10 @@ func comprobarMisionActConObjEspecifico(tipoObjeto, tipoObjetivo):
 				for obj in objetivosArray:
 					catalogoObjetivos[obj["id"]] = obj
 			else:
-				print("Error al parsear objetivos.json: ", json.get_error_string())
 				return misiones_encontradas
 		else:
-			print("Error al abrir objetivos.json")
 			return misiones_encontradas
 	else:
-		print("Archivo no encontrado: ", varGlobales.jsonObjetivos)
 		return misiones_encontradas
 	
 	for m in misionesActivas:
@@ -162,7 +144,6 @@ func comprobarMisionActConObjEspecifico(tipoObjeto, tipoObjetivo):
 
 # Comprueba si las misiones activas tienen sus objetivos completados y actualiza su estado a "completada" si es así.
 func comprobarSiMisionTieneEstarActiva():
-	# print(recompensasManager.getRecompensaMisionDesdeJson("m1"))
 	if not ResourceLoader.exists(varGlobales.jsonMisiones):
 		return
 	
