@@ -80,11 +80,11 @@ func _on_boton_guardar_pressed() -> void:
 	agregar_campo_json(mision_json, "descripcion", descripcionMision.text)
 	agregar_campo_json(mision_json, "icono", botonIcono.icon.resource_path if botonIcono.icon else "")
 	var tiempo_valor = -7.0 if checkSinLimiteTiempo.button_pressed else (tiempoLimiteMision.value if tiempoLimiteMision != null else -7.0)
-	agregar_campo_json(mision_json, "tiempoLimiteSegundos", tiempo_valor)
+	agregar_campo_json(mision_json, "tiempoLimiteSegundos", utils.formatearNumeroAEntero(tiempo_valor))
 	agregar_campo_json(mision_json, "categoria", categoriaMision.get_item_text(categoriaMision.get_selected()))
-	agregar_campo_json(mision_json, "prioridad", prioridadMision.value if prioridadMision != null else 0.0)
+	agregar_campo_json(mision_json, "prioridad", utils.formatearNumeroAEntero(prioridadMision.value if prioridadMision != null else 0))
 	agregar_campo_json(mision_json, "estado", estadoMision.get_item_text(estadoMision.get_selected()))
-	agregar_campo_json(mision_json, "tiempoRestante", tiempo_valor)
+	agregar_campo_json(mision_json, "tiempoRestante", utils.formatearNumeroAEntero(tiempo_valor))
 
 	var objetivos_array = []
 	for id_obj in getObjetivosSeleccionados():

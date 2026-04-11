@@ -16,8 +16,8 @@
 		],
 		"recompensas": [
 			{
-				"id": "r2",
-				"estado": "pendiente"
+				"id": "r1",
+				"estado": "aplicada"
 			}
 		],
 		"estado": "completada",

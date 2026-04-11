@@ -31,6 +31,53 @@ func getObjetivosMisionObj(idMision):
 
 	return objetivosFormateados
 
+func getObjetivosMisionEspecificaActivosTipoEspecifico(idMision, tipoObjetivo):
+	var objetivos = misionManager.getObjetivosMisionActiva(idMision)
+	var objetivosFiltrados = []
+	if objetivos == null:
+		return objetivosFiltrados
+
+	if ResourceLoader.exists(varGlobales.jsonObjetivos):
+		var archivo = FileAccess.open(varGlobales.jsonObjetivos, FileAccess.READ)
+		if archivo != null:
+			var contenido = archivo.get_as_text()
+			var json = JSON.new()
+			var error = json.parse(contenido)
+
+			if error == OK:
+				var objetivosCatalogo = json.get_data()
+				var objetivosPorId = {}
+				for objetivoCatalogo in objetivosCatalogo:
+					objetivosPorId[objetivoCatalogo["id"]] = objetivoCatalogo
+
+				for obj in objetivos:
+					if obj.get("completado", false):
+						continue
+					if objetivosPorId.has(obj["id"]):
+						var objetivoBase = objetivosPorId[obj["id"]].duplicate(true)
+						if objetivoBase.get("tipo", "") == tipoObjetivo:
+							objetivoBase["progreso"] = utils.formatearNumeroAEntero(obj["progreso"])
+							objetivoBase["completado"] = obj["completado"]
+							objetivoBase["cantidad"] = utils.formatearNumeroAEntero(objetivoBase.get("cantidad", 1))
+							objetivosFiltrados.append(objetivoBase)
+
+	return objetivosFiltrados
+
+# Retorna una matriz con pares [idMision, idObjetivo] de objetivos activos del tipo indicado en TODAS las misiones activas
+func getIdMisionIdObjetivoActivosPorTipo(tipoObjetivo: String) -> Array:
+	var resultado: Array = []
+	if tipoObjetivo.strip_edges() == "":
+		return resultado
+
+	var misionesActivas = misionManager.getMisionesActivasDesdeJson()
+	for mision in misionesActivas:
+		var idMision = str(mision.get("id", ""))
+		var objetivosActivosDelTipo = getObjetivosMisionEspecificaActivosTipoEspecifico(idMision, tipoObjetivo)
+		for objetivo in objetivosActivosDelTipo:
+			resultado.append([idMision, str(objetivo.get("id", ""))])
+
+	return resultado
+
 func getIdYNombreObjetivosJson():
 	var resultado = []
 	if ResourceLoader.exists(varGlobales.jsonObjetivos):

@@ -13,4 +13,5 @@ func _on_mision_click():
 	var id_final = id_item if id_item != "" else name
 	var descripcion_como_int = int(text)
 
-	objetivoTipoColeccion.new().aumentarProgreso("m1", 1)
+	#objetivoTipoColeccion.new().aumentarProgreso("m1", 1)
+	progresionMisionesEventos.emitir_item_recogido(id_final, 1)

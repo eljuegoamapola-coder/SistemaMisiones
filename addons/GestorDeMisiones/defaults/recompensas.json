@@ -1,10 +1,10 @@
 [
 	{
 		"id": "r1",
-		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoImprimirPorConsola.png",
 		"tipo": "ImprimirPorConsola",
-		"nombre": "Recompensa de Consola",
-		"texto": "MISION COMPLETADA: Has recolectado todas las gemas necesarias.",
-		"descripcion": "Esta recompensa se otorga al completar la misión de recolección de gemas. Felicidades por tu logro."
+		"nombre": "imprimir por consola desde ui nombre",
+		"descripcion": "imprimir por consola desde ui descripcion",
+		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoError.png",
+		"texto": "Mision completada"
 	}
 ]

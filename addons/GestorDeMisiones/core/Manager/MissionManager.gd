@@ -177,12 +177,20 @@ func comprobarSiMisionTieneEstarActiva():
 			m["estado"] = "completada"
 			hubo_cambios = true
 			recompensasManager.aplicarRecompensasMision(m["id"])
+			# Marcar todas las recompensas de esta misión completada como "aplicada"
+			var recompensas = m.get("recompensas", [])
+			for recompensa in recompensas:
+				recompensa["estado"] = "aplicada"
 	
 	if hubo_cambios:
 		archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.WRITE)
 		if archivo != null:
 			archivo.store_string(JSON.stringify(todasLasMisiones, "\t", false))
 			archivo.close()
+
+
+	
+
 
 # Retorna un array con el id de todas las misiones del JSON
 func getIdMisionesJson() -> Array:

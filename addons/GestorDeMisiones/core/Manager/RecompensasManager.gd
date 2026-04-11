@@ -89,6 +89,9 @@ func aplicarRecompensasMision(idMision):
 		var recompensa_instancia = recompensa_script.new()
 		aplicar_recompensa(recompensa_instancia, recompensa_data)
 
+func setEStadoRecompensaAplicada(idMision, idRecompensa):
+	misionManager.setEstadoRecompensaMisionAplicada(idMision, idRecompensa)
+
 func getIdRecompensasJson():
 	var resultado = []
 	if ResourceLoader.exists(varGlobales.jsonRecompensas):

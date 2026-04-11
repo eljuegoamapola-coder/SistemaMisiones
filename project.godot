@@ -21,11 +21,13 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-utils="*res://addons/GestorDeMisiones/core/Utilidades.gd"
-misionManager="*res://addons/GestorDeMisiones/core/Manager/MissionManager.gd"
-objetivosManager="*res://addons/GestorDeMisiones/core/Manager/ObjetivosManager.gd"
-recompensasManager="*res://addons/GestorDeMisiones/core/Manager/RecompensasManager.gd"
-varGlobales="*res://addons/GestorDeMisiones/core/variablesGlobales.gd"
+utils="*uid://dpluwbxouwp5b"
+varGlobales="*uid://ddmjcp1js8msl"
+misionManager="*uid://cfrub05utl2i7"
+objetivosManager="*uid://cgpvyrwrsxvlq"
+recompensasManager="*uid://cbwr0f582psny"
+progresionMisionesEventos="*uid://yy3uactnqphd"
+objetivosEventosListener="*uid://de683txxqupcq"
 
 [editor_plugins]
 
