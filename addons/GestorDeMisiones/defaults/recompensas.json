@@ -1,18 +1,10 @@
 [
 	{
-		"id": "r1",
+		"id": "rec_76499_2226",
 		"tipo": "ImprimirPorConsola",
-		"nombre": "imprimir por consola desde ui nombre",
-		"descripcion": "imprimir por consola desde ui descripcion",
-		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoError.png",
-		"texto": "Mision completada"
-	},
-	{
-		"id": "rec_25402_3440",
-		"tipo": "ImprimirPorConsola",
-		"nombre": "sdfsdfsf",
-		"descripcion": "dsfsdfs",
-		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoMisionEsqueleto.png",
-		"texto": "sdfsd"
+		"nombre": "imprimir por consola",
+		"descripcion": "imprimir por consola",
+		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoItemGemaRoja.png",
+		"texto": "imprimir por consola"
 	}
 ]

@@ -34,18 +34,6 @@ func _ready() -> void:
 	for estado_mision in varGlobales.listaEstadosMisiones:
 		estadoMision.add_item(estado_mision)
 
-	var objetivos = objetivosManager.getIdYNombreObjetivosJson()
-	for objetivo in objetivos:
-		var icono_objetivo = utils.cargarIcono(str(objetivo.get("icono", "")))
-		if listaObjetivos != null:
-			listaObjetivos.add_item(str(objetivo.get("id", "")) + " - " + str(objetivo.get("nombre", "Sin nombre")), icono_objetivo)
-	
-	var recompensas = recompensasManager.getIdYDescripcionRecompensasJson()
-	for recompensa in recompensas:
-		var icono_recompensa = utils.cargarIcono(str(recompensa.get("icono", "")))
-		if listaRecompensas != null:
-			listaRecompensas.add_item(str(recompensa.get("id", "")) + " - " + str(recompensa.get("descripcion", "Sin descripcion")), icono_recompensa)
-
 	if listaObjetivos != null:
 		if not listaObjetivos.item_selected.is_connected(_on_lista_item_selected):
 			listaObjetivos.item_selected.connect(_on_lista_item_selected)
@@ -57,6 +45,27 @@ func _ready() -> void:
 			listaRecompensas.item_selected.connect(_on_lista_item_selected)
 		if not listaRecompensas.multi_selected.is_connected(_on_lista_multi_selected):
 			listaRecompensas.multi_selected.connect(_on_lista_multi_selected)
+
+	refrescar_listas()
+
+
+func refrescar_listas() -> void:
+	if listaObjetivos != null:
+		listaObjetivos.clear()
+	if listaRecompensas != null:
+		listaRecompensas.clear()
+
+	var objetivos = objetivosManager.getIdYNombreObjetivosJson()
+	for objetivo in objetivos:
+		var icono_objetivo = utils.cargarIcono(str(objetivo.get("icono", "")))
+		if listaObjetivos != null:
+			listaObjetivos.add_item(str(objetivo.get("id", "")) + " - " + str(objetivo.get("nombre", "Sin nombre")), icono_objetivo)
+
+	var recompensas = recompensasManager.getIdYDescripcionRecompensasJson()
+	for recompensa in recompensas:
+		var icono_recompensa = utils.cargarIcono(str(recompensa.get("icono", "")))
+		if listaRecompensas != null:
+			listaRecompensas.add_item(str(recompensa.get("id", "")) + " - " + str(recompensa.get("descripcion", "Sin descripcion")), icono_recompensa)
 
 	_actualizar_labels_seleccion()
 
@@ -99,7 +108,32 @@ func _on_boton_guardar_pressed() -> void:
 	if avisoErrores != null:
 		avisoErrores.text = ""
 	if comprobarCamposRequeridos(mision_json):
-		misionManager.setNuevaMisionEnJson(mision_json)
+		if misionManager.setNuevaMisionEnJson(mision_json):
+			limpiar_formulario()
+
+func limpiar_formulario() -> void:
+	idMision.text = ""
+	nombreMision.text = ""
+	descripcionMision.text = ""
+	categoriaMision.select(-1)
+	estadoMision.select(-1)
+	if tiempoLimiteMision != null:
+		tiempoLimiteMision.value = 0
+		tiempoLimiteMision.editable = true
+	if prioridadMision != null:
+		prioridadMision.value = 0
+	checkSinLimiteTiempo.button_pressed = false
+	botonIcono.icon = null
+	botonIcono.tooltip_text = ""
+	ruta_icono_seleccionado = ""
+	if listaObjetivos != null:
+		listaObjetivos.deselect_all()
+	if listaRecompensas != null:
+		listaRecompensas.deselect_all()
+	if avisoErrores != null:
+		avisoErrores.text = ""
+	_actualizar_labels_seleccion()
+
 
 func _on_check_sin_limite_toggled(checked: bool) -> void:
 	if tiempoLimiteMision != null:

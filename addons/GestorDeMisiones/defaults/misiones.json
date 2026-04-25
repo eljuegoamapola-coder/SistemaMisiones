@@ -1,30 +1,30 @@
 [
 	{
-		"id": "mso_39394_5443",
-		"titulo": "Colección de armamento",
-		"descripcion": "Colecciona espadas y escudos para armar a la tropa",
+		"id": "mso_100589_9331",
+		"titulo": "Recolecta",
+		"descripcion": "Recolecta descripcion",
 		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoError.png",
 		"tiempoLimiteSegundos": -7.0,
 		"categoria": "Recolección",
 		"prioridad": 0.0,
-		"estado": "completada",
+		"estado": "activo",
 		"tiempoRestante": -7.0,
 		"objetivos": [
 			{
-				"id": "obj_43865_8297",
-				"progreso": 10.0,
-				"completado": true
+				"id": "obj_25464_8606",
+				"progreso": 3.0,
+				"completado": false
 			},
 			{
-				"id": "obj_56161_7360",
-				"progreso": 10.0,
-				"completado": true
+				"id": "obj_42908_4130",
+				"progreso": 0.0,
+				"completado": false
 			}
 		],
 		"recompensas": [
 			{
-				"id": "r1",
-				"estado": "aplicada"
+				"id": "rec_76499_2226",
+				"estado": "pendiente"
 			}
 		]
 	}

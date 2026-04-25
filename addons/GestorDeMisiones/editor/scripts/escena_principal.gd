@@ -32,6 +32,9 @@ func _on_boton_crear_mision_pressed() -> void:
 	$ConsultarInformacionGui.visible = false
 	$CrearObjetivoGui.visible = false
 	$CrearRecompensaGui.visible = false
+	var panel = $CrearMisionGui
+	if is_instance_valid(panel) and panel.has_method("refrescar_listas"):
+		panel.refrescar_listas()
 
 func _on_boton_consultar_informacion_pressed() -> void:
 	_actualizar_boton_activo(botonConsultarInformacion)

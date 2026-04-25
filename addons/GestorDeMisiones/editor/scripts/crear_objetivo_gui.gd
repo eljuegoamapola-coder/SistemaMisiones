@@ -107,7 +107,42 @@ func _on_boton_guardar_pressed() -> void:
 	
 	avisoErrores.text = ""
 	if comprobarCamposRequeridos(objetivo_json):
-		objetivosManager.setNuevoObjetivoEnJson(objetivo_json)
+		if objetivosManager.setNuevoObjetivoEnJson(objetivo_json):
+			limpiar_formulario()
+
+
+func limpiar_formulario() -> void:
+	idObjetivo.text = ""
+	nombreObjetivo.text = ""
+	descripcionObjetivo.text = ""
+	tipo_objetivo.select(-1)
+	_actualizar_visibilidad_objetivos("")
+
+	var col_tipoid: LineEdit = get_node_or_null("L4_Objetivos/coleccion/tipoId")
+	var col_cantidad: SpinBox = get_node_or_null("L4_Objetivos/coleccion/cantidad")
+	var col_identificacion: OptionButton = get_node_or_null("L4_Objetivos/coleccion/identificacion")
+	if col_tipoid: col_tipoid.text = ""
+	if col_cantidad: col_cantidad.value = col_cantidad.min_value
+	if col_identificacion: col_identificacion.select(0)
+
+	var eli_tipoid: LineEdit = get_node_or_null("L4_Objetivos/eliminacion/tipoId")
+	var eli_cantidad: SpinBox = get_node_or_null("L4_Objetivos/eliminacion/cantidad")
+	var eli_identificacion: OptionButton = get_node_or_null("L4_Objetivos/eliminacion/identificacion")
+	if eli_tipoid: eli_tipoid.text = ""
+	if eli_cantidad: eli_cantidad.value = eli_cantidad.min_value
+	if eli_identificacion: eli_identificacion.select(0)
+
+	var int_id: LineEdit = get_node_or_null("L4_Objetivos/interaccion/idinteraccion")
+	if int_id: int_id.text = ""
+
+	var ent_item: LineEdit = get_node_or_null("L4_Objetivos/entrega/idItementregar")
+	var ent_cantidad: SpinBox = get_node_or_null("L4_Objetivos/entrega/cantidadentregar")
+	var ent_receptor: LineEdit = get_node_or_null("L4_Objetivos/entrega/idReceptor")
+	if ent_item: ent_item.text = ""
+	if ent_cantidad: ent_cantidad.value = ent_cantidad.min_value
+	if ent_receptor: ent_receptor.text = ""
+
+	avisoErrores.text = ""
 
 
 func agregar_campo_json(objetivo_json: Dictionary, clave: String, valor: Variant) -> void:

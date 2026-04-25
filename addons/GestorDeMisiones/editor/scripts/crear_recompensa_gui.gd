@@ -86,7 +86,24 @@ func _on_boton_guardar_pressed() -> void:
 
 	avisoErrores.text = ""
 	if comprobarCamposRequeridos(recompensa_json):
-		recompensasManager.setNuevaRecompensaEnJson(recompensa_json)
+		if recompensasManager.setNuevaRecompensaEnJson(recompensa_json):
+			limpiar_formulario()
+
+
+func limpiar_formulario() -> void:
+	idRecompensa.text = ""
+	nombreRecompensa.text = ""
+	descripcionRecompensa.text = ""
+	tipo_recompensa.select(-1)
+	_actualizar_visibilidad_recompensas("")
+	botonIcono.icon = null
+	botonIcono.tooltip_text = ""
+	ruta_icono_seleccionado = ""
+
+	var txt_imprimir: LineEdit = get_node_or_null("L4_Recompensas/ImprimirPorConsola/texto")
+	if txt_imprimir: txt_imprimir.text = ""
+
+	avisoErrores.text = ""
 
 
 func agregar_campo_json(recompensa_json: Dictionary, clave: String, valor: Variant) -> void:

@@ -1,34 +1,16 @@
 [
 	{
-		"id": "obj_27372_7866",
+		"id": "obj_25464_8606",
 		"tipo": "coleccion",
-		"nombre": "Colecciona 3 gemas",
-		"descripcion": "Colecciona 3 gemas",
-		"idItem": "GemaRoja1",
-		"cantidad": 3.0
-	},
-	{
-		"id": "obj_228724_6292",
-		"tipo": "coleccion",
-		"nombre": "nombre",
-		"descripcion": "descripción",
-		"idItem": "ida",
-		"cantidad": 5.0
-	},
-	{
-		"id": "obj_43865_8297",
-		"tipo": "coleccion",
-		"nombre": "Coleccionar espadas",
-		"descripcion": "Coleccionar espadas",
+		"nombre": "coleccion",
+		"descripcion": "descripcion",
 		"idItem": "espada",
-		"cantidad": 10
+		"cantidad": 5
 	},
 	{
-		"id": "obj_56161_7360",
-		"tipo": "coleccion",
-		"nombre": "Coleccionar escudos",
-		"descripcion": "Coleccionar escudos",
-		"idItem": "escudo",
-		"cantidad": 10
+		"id": "obj_42908_4130",
+		"tipo": "Eliminacion",
+		"nombre": "elimna",
+		"descripcion": "elimna"
 	}
 ]
