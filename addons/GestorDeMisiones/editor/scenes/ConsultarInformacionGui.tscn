@@ -14,7 +14,7 @@ script = ExtResource("1_u7t1v")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
-offset_right = 1020.0
+offset_right = 740.0
 offset_bottom = 648.0
 
 [node name="JsonInformacion" type="Label" parent="ScrollContainer"]
@@ -22,7 +22,7 @@ layout_mode = 2
 
 [node name="Botoenes" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 1031.0
+offset_left = 750.0
 offset_top = 4.0
 offset_right = 1146.0
 offset_bottom = 644.0
@@ -37,5 +37,66 @@ text = "Objetivos"
 
 [node name="ButtonRecompensas" type="Button" parent="Botoenes"]
 layout_mode = 2
-text = "Recompensas
-"
+text = "Recompensas"
+
+[node name="HSeparator" type="HSeparator" parent="Botoenes"]
+layout_mode = 2
+
+[node name="FiltrosLabel" type="Label" parent="Botoenes"]
+layout_mode = 2
+text = "Filtros:"
+
+[node name="Filtros" type="VBoxContainer" parent="Botoenes"]
+layout_mode = 2
+
+[node name="LabelId" type="Label" parent="Botoenes/Filtros"]
+layout_mode = 2
+text = "ID:"
+
+[node name="FiltroId" type="LineEdit" parent="Botoenes/Filtros"]
+layout_mode = 2
+placeholder_text = "Buscar por ID..."
+
+[node name="LabelNombre" type="Label" parent="Botoenes/Filtros"]
+layout_mode = 2
+text = "Nombre / Título:"
+
+[node name="FiltroNombre" type="LineEdit" parent="Botoenes/Filtros"]
+layout_mode = 2
+placeholder_text = "Buscar por nombre..."
+
+[node name="LabelTipo" type="Label" parent="Botoenes/Filtros"]
+layout_mode = 2
+text = "Tipo / Categoría:"
+
+[node name="FiltroTipo" type="LineEdit" parent="Botoenes/Filtros"]
+layout_mode = 2
+placeholder_text = "Buscar por tipo..."
+
+[node name="LabelDescripcion" type="Label" parent="Botoenes/Filtros"]
+layout_mode = 2
+text = "Descripción:"
+
+[node name="FiltroDescripcion" type="LineEdit" parent="Botoenes/Filtros"]
+layout_mode = 2
+placeholder_text = "Buscar en descripción..."
+
+[node name="LabelEstado" type="Label" parent="Botoenes/Filtros"]
+layout_mode = 2
+text = "Estado:"
+
+[node name="FiltroEstado" type="OptionButton" parent="Botoenes/Filtros"]
+layout_mode = 2
+
+[node name="AccionesFiltros" type="HBoxContainer" parent="Botoenes"]
+layout_mode = 2
+
+[node name="ButtonAplicarFiltros" type="Button" parent="Botoenes/AccionesFiltros"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Aplicar"
+
+[node name="ButtonLimpiarFiltros" type="Button" parent="Botoenes/AccionesFiltros"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Limpiar"
