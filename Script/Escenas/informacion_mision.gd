@@ -3,7 +3,7 @@ extends Node2D
 
 
 func _ready() -> void:
-	pintarInformacionMision("m2") # Provisional para iniciar escena con información en las pruebas
+	pintarInformacionMision("m1") # Provisional para iniciar escena con información en las pruebas
 	pass
 
 # Pintar la información de una misión específica en la interfaz

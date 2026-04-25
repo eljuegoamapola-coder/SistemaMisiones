@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://qddy4xa3fji0"]
+[gd_resource type="Resource" format=3 uid="uid://qddy4xa3fji0"]
 
 [ext_resource type="Texture2D" uid="uid://cvnscjw1ma3xw" path="res://addons/GestorDeMisiones/editor/icons/iconoItemGemaRoja.png" id="1_6h7xe"]
 [ext_resource type="Script" uid="uid://d1ws4wshq5twm" path="res://addons/GestorDeMisiones/core/Plantillas/PlantillaItems.gd" id="1_o6gur"]

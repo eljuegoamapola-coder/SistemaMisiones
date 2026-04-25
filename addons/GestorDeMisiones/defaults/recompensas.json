@@ -6,5 +6,13 @@
 		"descripcion": "imprimir por consola desde ui descripcion",
 		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoError.png",
 		"texto": "Mision completada"
+	},
+	{
+		"id": "rec_25402_3440",
+		"tipo": "ImprimirPorConsola",
+		"nombre": "sdfsdfsf",
+		"descripcion": "dsfsdfs",
+		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoMisionEsqueleto.png",
+		"texto": "sdfsd"
 	}
 ]

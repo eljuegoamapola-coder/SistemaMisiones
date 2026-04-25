@@ -122,25 +122,10 @@ func _inicializar_selector_icono() -> void:
 	selector_icono.file_selected.connect(_on_icono_seleccionado)
 	add_child(selector_icono)
 
-func _cargar_icono(ruta_icono: String) -> Texture2D:
-	var ruta_resuelta = ruta_icono if ruta_icono != "" else varGlobales.imgError
-	if ResourceLoader.exists(ruta_resuelta):
-		return load(ruta_resuelta) as Texture2D
-	return load(varGlobales.imgError) as Texture2D
-
 func _on_icono_seleccionado(ruta_archivo: String) -> void:
 	ruta_icono_seleccionado = ruta_archivo
-	var textura = _cargar_textura_desde_archivo(ruta_archivo)
+	var textura = utils.cargarTexturaDesdeArchivo(ruta_archivo)
 	if textura != null:
 		botonIcono.icon = textura
 		botonIcono.tooltip_text = ruta_icono_seleccionado
-
-func _cargar_textura_desde_archivo(ruta_archivo: String) -> Texture2D:
-	if ruta_archivo.begins_with("res://") and ResourceLoader.exists(ruta_archivo):
-		return load(ruta_archivo) as Texture2D
-
-	var imagen = Image.load_from_file(ruta_archivo)
-	if imagen == null or imagen.is_empty():
-		return null
-	return ImageTexture.create_from_image(imagen)
 # SELECCIÓN DE ICONO - FIN

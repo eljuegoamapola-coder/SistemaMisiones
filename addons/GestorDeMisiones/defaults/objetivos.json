@@ -13,6 +13,22 @@
 		"nombre": "nombre",
 		"descripcion": "descripción",
 		"idItem": "ida",
-		"cantidad": 5
+		"cantidad": 5.0
+	},
+	{
+		"id": "obj_43865_8297",
+		"tipo": "coleccion",
+		"nombre": "Coleccionar espadas",
+		"descripcion": "Coleccionar espadas",
+		"idItem": "espada",
+		"cantidad": 10
+	},
+	{
+		"id": "obj_56161_7360",
+		"tipo": "coleccion",
+		"nombre": "Coleccionar escudos",
+		"descripcion": "Coleccionar escudos",
+		"idItem": "escudo",
+		"cantidad": 10
 	}
 ]

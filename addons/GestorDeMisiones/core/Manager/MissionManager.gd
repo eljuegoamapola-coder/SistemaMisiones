@@ -1,58 +1,50 @@
 extends Node
 
+var _cache: Variant = null
+
+func _cargar() -> Array:
+	if _cache != null:
+		varGlobales._contador_cache += 1
+		print("[CACHE HIT #%d] MissionManager" % varGlobales._contador_cache)
+		return _cache
+	if not ResourceLoader.exists(varGlobales.jsonMisiones):
+		return []
+	var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
+	if archivo == null:
+		return []
+	var datos = JSON.parse_string(archivo.get_as_text())
+	archivo.close()
+	if datos == null:
+		return []
+	varGlobales._contador_lecturas += 1
+	print("[JSON READ #%d] MissionManager - misiones.json" % varGlobales._contador_lecturas)
+	_cache = datos
+	return _cache
+
+func _guardar(datos: Array) -> bool:
+	var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.WRITE)
+	if archivo == null:
+		return false
+	archivo.store_string(JSON.stringify(datos, "\t", false))
+	archivo.close()
+	varGlobales._contador_escrituras += 1
+	print("[JSON WRITE #%d] MissionManager - misiones.json" % varGlobales._contador_escrituras)
+	_cache = datos
+	return true
+
 # Extrae del json las misiones que tienen el estado en "activo" y las retornan
 func getMisionesActivasDesdeJson():
 	var misiones = []
-
-	if ResourceLoader.exists(varGlobales.jsonMisiones):
-		var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
-		if archivo != null:
-			var contenido = archivo.get_as_text()
-			var json = JSON.new()
-			var error = json.parse(contenido)
-
-			if error == OK:
-				var misionesArray = json.get_data()
-				for m in misionesArray:
-					if m["estado"] == "activo":
-						misiones.append(m)
+	for m in _cargar():
+		if m["estado"] == "activo":
+			misiones.append(m)
 	return misiones
 
 func getMisionesDesdeJsonConformatoJson() -> String:
-	var misiones = []
-
-	if ResourceLoader.exists(varGlobales.jsonMisiones):
-		var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
-		if archivo != null:
-			var contenido = archivo.get_as_text()
-			var json = JSON.new()
-			var error = json.parse(contenido)
-
-			if error == OK:
-				misiones = json.get_data()
-			else:
-				return "[]"
-		else:
-			return "[]"
-	else:
-		return "[]"
-
-	# Retorna un JSON legible con indentacion de 4 espacios.
-	return JSON.stringify(misiones, "    ", false)
+	return JSON.stringify(_cargar(), "    ", false)
 
 func getMisionesDesdeJsonFormJson():
-	var misiones = []
-
-	if ResourceLoader.exists(varGlobales.jsonMisiones):
-		var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
-		if archivo != null:
-			var contenido = archivo.get_as_text()
-			var json = JSON.new()
-			var error = json.parse(contenido)
-
-			if error == OK:
-				misiones = json.get_data()
-	return misiones
+	return _cargar()
 
 # Retorna un array con el id de todas las misiones activas
 func getIdMisionesActivas():
@@ -106,87 +98,53 @@ func getRecompensasMisionEspecifica(idMision):
 
 # Retorna los id de objetivos que esten en misiones activas con un tipo de objetivo y un tipo de objeto específico
 func comprobarMisionActConObjEspecifico(tipoObjeto, tipoObjetivo):
-	var misionesActivas = getMisionesActivasDesdeJson()
 	var misiones_encontradas = []
-	
-	var catalogoObjetivos = {}
-	if ResourceLoader.exists(varGlobales.jsonObjetivos):
-		var archivo = FileAccess.open(varGlobales.jsonObjetivos, FileAccess.READ)
-		if archivo != null:
-			var contenido = archivo.get_as_text()
-			var json = JSON.new()
-			var error = json.parse(contenido)
-			
-			if error == OK:
-				var objetivosArray = json.get_data()
-				for obj in objetivosArray:
-					catalogoObjetivos[obj["id"]] = obj
-			else:
-				return misiones_encontradas
-		else:
-			return misiones_encontradas
-	else:
+	var catalogoObjetivos = objetivosManager._cargar_catalogo()
+	if catalogoObjetivos.is_empty():
 		return misiones_encontradas
-	
-	for m in misionesActivas:
+
+	for m in getMisionesActivasDesdeJson():
 		for objetivo in m["objetivos"]:
 			var id_objetivo = objetivo["id"]
 			if catalogoObjetivos.has(id_objetivo):
 				var objetivoCompleto = catalogoObjetivos[id_objetivo]
 				var tipo = objetivoCompleto.get("tipo", "")
 				var tipo_obj = objetivoCompleto.get("tipo_objeto", objetivoCompleto.get("id_objeto", ""))
-				
 				if tipo == tipoObjetivo and tipo_obj == tipoObjeto:
 					if not misiones_encontradas.has(m["id"]):
 						misiones_encontradas.append(m["id"])
-	
+
 	return misiones_encontradas
 
 # Comprueba si las misiones activas tienen sus objetivos completados y actualiza su estado a "completada" si es así.
 func comprobarSiMisionTieneEstarActiva():
-	if not ResourceLoader.exists(varGlobales.jsonMisiones):
+	var todasLasMisiones = _cargar()
+	if todasLasMisiones.is_empty():
 		return
-	
-	var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
-	if archivo == null:
-		return
-	
-	var contenido = archivo.get_as_text()
-	archivo.close()
-	var todasLasMisiones = JSON.parse_string(contenido)
-	
-	if todasLasMisiones == null:
-		return
-	
+
 	var hubo_cambios = false
 	for m in todasLasMisiones:
 		if m["estado"] != "activo":
 			continue
-		
-		# Primero actualizar estado de objetivos basado en progreso vs cantidad
+
 		objetivosManager.comprobarSiObjetivosDeMisionCompletados(m["id"])
-		
-		# Luego verificar si todos los objetivos están completados
+
 		var mision_completa = true
 		for objetivo in m["objetivos"]:
 			if not objetivo.get("completado", false):
 				mision_completa = false
 				break
-		
+
 		if mision_completa:
 			m["estado"] = "completada"
 			hubo_cambios = true
 			recompensasManager.aplicarRecompensasMision(m["id"])
-			# Marcar todas las recompensas de esta misión completada como "aplicada"
 			var recompensas = m.get("recompensas", [])
 			for recompensa in recompensas:
 				recompensa["estado"] = "aplicada"
-	
+
 	if hubo_cambios:
-		archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.WRITE)
-		if archivo != null:
-			archivo.store_string(JSON.stringify(todasLasMisiones, "\t", false))
-			archivo.close()
+		_guardar(todasLasMisiones)
 
 
 	
@@ -195,29 +153,14 @@ func comprobarSiMisionTieneEstarActiva():
 # Retorna un array con el id de todas las misiones del JSON
 func getIdMisionesJson() -> Array:
 	var resultado = []
-	if not ResourceLoader.exists(varGlobales.jsonMisiones):
-		return resultado
-	var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
-	if archivo == null:
-		return resultado
-	var json = JSON.new()
-	if json.parse(archivo.get_as_text()) == OK:
-		for mision in json.get_data():
-			resultado.append(mision["id"])
+	for mision in _cargar():
+		resultado.append(mision["id"])
 	return resultado
 
 # Agrega una nueva misión al JSON de misiones
 func setNuevaMisionEnJson(mision_json: Dictionary) -> bool:
 	if not ResourceLoader.exists(varGlobales.jsonMisiones):
 		return false
-	var archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.READ)
-	var contenido = archivo.get_as_text()
-	archivo.close()
-	var todasLasMisiones = JSON.parse_string(contenido)
-	todasLasMisiones.append(mision_json)
-	archivo = FileAccess.open(varGlobales.jsonMisiones, FileAccess.WRITE)
-	if archivo != null:
-		archivo.store_string(JSON.stringify(todasLasMisiones, "\t", false))
-		archivo.close()
-		return true
-	return false
+	var datos = _cargar().duplicate(true)
+	datos.append(mision_json)
+	return _guardar(datos)

@@ -10,6 +10,10 @@ func _ready() -> void:
 func _on_item_recogido(idItem: String, cantidad: int) -> void:
 	var objetivoTipoColeccion = load("res://addons/GestorDeMisiones/core/Objetivos/coleccion.gd")
 	var objetivosRelacionados = objetivosManager.getIdMisionIdObjetivoActivosPorTipo("coleccion")
+	var misionesProcesadas: Array = []
 	for mision in objetivosRelacionados:
 		var idMision = mision[0]
-		objetivoTipoColeccion.new().aumentarProgreso(idMision, cantidad)
+		if idMision in misionesProcesadas:
+			continue
+		misionesProcesadas.append(idMision)
+		objetivoTipoColeccion.new().aumentarProgreso(idMision, idItem, cantidad)

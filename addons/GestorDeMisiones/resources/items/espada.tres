@@ -1,0 +1,12 @@
+[gd_resource type="Resource" format=3 uid="uid://38fhgumaucvx"]
+
+[ext_resource type="Texture2D" uid="uid://bakvo37iwocgp" path="res://addons/GestorDeMisiones/editor/icons/iconoMisionEsqueleto.png" id="1_brtga"]
+[ext_resource type="Script" uid="uid://d1ws4wshq5twm" path="res://addons/GestorDeMisiones/core/Plantillas/PlantillaItems.gd" id="2_367cu"]
+
+[resource]
+script = ExtResource("2_367cu")
+id = "espada"
+tipo = "arma"
+nombre = "espada"
+descripcion = "espada prueba"
+icono = ExtResource("1_brtga")

@@ -4,74 +4,70 @@ const RECOMPENSAS_POR_TIPO := {
 	"ImprimirPorConsola": preload("res://addons/GestorDeMisiones/core/Recompensas/ImprimirPorConsola.gd")
 }
 
+var _cache: Variant = null
+
+func _cargar() -> Array:
+	if _cache != null:
+		varGlobales._contador_cache += 1
+		print("[CACHE HIT #%d] RecompensasManager" % varGlobales._contador_cache)
+		return _cache
+	if not ResourceLoader.exists(varGlobales.jsonRecompensas):
+		return []
+	var archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.READ)
+	if archivo == null:
+		return []
+	var datos = JSON.parse_string(archivo.get_as_text())
+	archivo.close()
+	if datos == null:
+		return []
+	varGlobales._contador_lecturas += 1
+	print("[JSON READ #%d] RecompensasManager - recompensas.json" % varGlobales._contador_lecturas)
+	_cache = datos
+	return _cache
+
+func _guardar(datos: Array) -> bool:
+	var archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.WRITE)
+	if archivo == null:
+		return false
+	archivo.store_string(JSON.stringify(datos, "\t", false))
+	archivo.close()
+	varGlobales._contador_escrituras += 1
+	print("[JSON WRITE #%d] RecompensasManager - recompensas.json" % varGlobales._contador_escrituras)
+	_cache = datos
+	return true
+
 # Llama a la funcion aplicar(data) de una recompensa con todos sus datos.
 func aplicar_recompensa(recompensa, recompensa_data: Dictionary):
 	recompensa.aplicar(recompensa_data)
 
 func getIdYDescripcionRecompensasJson():
 	var resultado = []
-	if ResourceLoader.exists(varGlobales.jsonRecompensas):
-		var archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.READ)
-		if archivo != null:
-			var contenido = archivo.get_as_text()
-			var json = JSON.new()
-			var error = json.parse(contenido)
-
-			if error == OK:
-				var recompensasCatalogo = json.get_data()
-				for recompensaCatalogo in recompensasCatalogo:
-					resultado.append({"id": recompensaCatalogo["id"],"descripcion": recompensaCatalogo.get("descripcion", ""), "icono": recompensaCatalogo.get("icono", "")})
-
+	for rec in _cargar():
+		resultado.append({"id": rec["id"], "descripcion": rec.get("descripcion", ""), "icono": rec.get("icono", "")})
 	return resultado
 
 # Retorna un array con la información completa de las recompensas de una misión específica
 func getRecompensaMisionDesdeJson(idMision):
 	var recompensasCompletas = []
 	var recompensasMision = misionManager.getRecompensasMisionActiva(idMision)
-
 	if recompensasMision == null:
 		return recompensasCompletas
-	
-	if ResourceLoader.exists(varGlobales.jsonRecompensas):
-		var archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.READ)
-		if archivo != null:
-			var contenido = archivo.get_as_text()
-			var json = JSON.new()
-			var error = json.parse(contenido)
 
-			if error == OK:
-				var todas_recompensas = json.get_data()
-				for recompensaMision in recompensasMision:
-					var idRecompensa = recompensaMision.get("id")
-					for recompensaData in todas_recompensas:
-						if recompensaData.get("id") == idRecompensa:
-							var recompensaCompleta = recompensaData.duplicate()
-							recompensaCompleta["estado"] = recompensaMision.get("estado")
-							recompensasCompletas.append(recompensaCompleta)
-							break
+	var todasPorId = {}
+	for rec in _cargar():
+		todasPorId[rec.get("id")] = rec
+
+	for recompensaMision in recompensasMision:
+		var idRecompensa = recompensaMision.get("id")
+		if todasPorId.has(idRecompensa):
+			var recompensaCompleta = todasPorId[idRecompensa].duplicate()
+			recompensaCompleta["estado"] = recompensaMision.get("estado")
+			recompensasCompletas.append(recompensaCompleta)
+
 	return recompensasCompletas
 
 func getRecompensasDesdeJsonConformatoJson() -> String:
-	var recompensas = []
-
-	if ResourceLoader.exists(varGlobales.jsonRecompensas):
-		var archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.READ)
-		if archivo != null:
-			var contenido = archivo.get_as_text()
-			var json = JSON.new()
-			var error = json.parse(contenido)
-
-			if error == OK:
-				recompensas = json.get_data()
-			else:
-				return "[]"
-		else:
-			return "[]"
-	else:
-		return "[]"
-
-	# Retorna un JSON legible con indentacion de 4 espacios.
-	return JSON.stringify(recompensas, "    ", false)
+	return JSON.stringify(_cargar(), "    ", false)
 
 # Retorna un array con la información completa de las recompensas de una misión específica
 func aplicarRecompensasMision(idMision):
@@ -94,33 +90,13 @@ func setEStadoRecompensaAplicada(idMision, idRecompensa):
 
 func getIdRecompensasJson():
 	var resultado = []
-	if ResourceLoader.exists(varGlobales.jsonRecompensas):
-		var archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.READ)
-		if archivo != null:
-			var contenido = archivo.get_as_text()
-			var json = JSON.new()
-			var error = json.parse(contenido)
-
-			if error == OK:
-				var recompensasCatalogo = json.get_data()
-				for recompensaCatalogo in recompensasCatalogo:
-					resultado.append(recompensaCatalogo["id"])
+	for rec in _cargar():
+		resultado.append(rec["id"])
 	return resultado
 
 func setNuevaRecompensaEnJson(recompensa_json: Dictionary) -> bool:
 	if not ResourceLoader.exists(varGlobales.jsonRecompensas):
 		return false
-
-	var archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.READ)
-	var contenido = archivo.get_as_text()
-	archivo.close()
-	var todasLasRecompensas = JSON.parse_string(contenido)
-	todasLasRecompensas.append(recompensa_json)
-
-	archivo = FileAccess.open(varGlobales.jsonRecompensas, FileAccess.WRITE)
-	if archivo != null:
-		archivo.store_string(JSON.stringify(todasLasRecompensas, "\t", false))
-		archivo.close()
-		return true
-	else:
-		return false
+	var datos = _cargar().duplicate(true)
+	datos.append(recompensa_json)
+	return _guardar(datos)

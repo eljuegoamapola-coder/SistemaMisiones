@@ -1,16 +1,23 @@
 [
 	{
-		"id": "m1",
-		"titulo": "Colecciona 3 Gemas",
-		"descripcion": "Reúne gemas para completar esta misión",
-		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoMisionGemas_01.png",
+		"id": "mso_39394_5443",
+		"titulo": "Colección de armamento",
+		"descripcion": "Colecciona espadas y escudos para armar a la tropa",
+		"icono": "res://addons/GestorDeMisiones/editor/icons/iconoError.png",
 		"tiempoLimiteSegundos": -7.0,
 		"categoria": "Recolección",
-		"prioridad": 2.0,
+		"prioridad": 0.0,
+		"estado": "completada",
+		"tiempoRestante": -7.0,
 		"objetivos": [
 			{
-				"id": "obj_27372_7866",
-				"progreso": 3.0,
+				"id": "obj_43865_8297",
+				"progreso": 10.0,
+				"completado": true
+			},
+			{
+				"id": "obj_56161_7360",
+				"progreso": 10.0,
 				"completado": true
 			}
 		],
@@ -19,8 +26,6 @@
 				"id": "r1",
 				"estado": "aplicada"
 			}
-		],
-		"estado": "completada",
-		"tiempoRestante": -7.0
+		]
 	}
 ]

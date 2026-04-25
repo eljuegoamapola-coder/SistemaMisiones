@@ -28,6 +28,18 @@ icon_alignment = 1
 script = ExtResource("3_ykqrv")
 id_item = "gema"
 
+[node name="ButtonEspada" type="Button" parent="Botones" unique_id=112233445]
+layout_mode = 2
+text = "Recoger Espada"
+script = ExtResource("3_ykqrv")
+id_item = "espada"
+
+[node name="ButtonEscudo" type="Button" parent="Botones" unique_id=556677889]
+layout_mode = 2
+text = "Recoger Escudo"
+script = ExtResource("3_ykqrv")
+id_item = "escudo"
+
 [node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=68858962]
 offset_right = 992.0
 offset_bottom = 638.0

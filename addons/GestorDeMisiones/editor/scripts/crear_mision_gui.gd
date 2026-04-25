@@ -36,13 +36,13 @@ func _ready() -> void:
 
 	var objetivos = objetivosManager.getIdYNombreObjetivosJson()
 	for objetivo in objetivos:
-		var icono_objetivo = _cargar_icono(str(objetivo.get("icono", "")))
+		var icono_objetivo = utils.cargarIcono(str(objetivo.get("icono", "")))
 		if listaObjetivos != null:
 			listaObjetivos.add_item(str(objetivo.get("id", "")) + " - " + str(objetivo.get("nombre", "Sin nombre")), icono_objetivo)
 	
 	var recompensas = recompensasManager.getIdYDescripcionRecompensasJson()
 	for recompensa in recompensas:
-		var icono_recompensa = _cargar_icono(str(recompensa.get("icono", "")))
+		var icono_recompensa = utils.cargarIcono(str(recompensa.get("icono", "")))
 		if listaRecompensas != null:
 			listaRecompensas.add_item(str(recompensa.get("id", "")) + " - " + str(recompensa.get("descripcion", "Sin descripcion")), icono_recompensa)
 
@@ -125,7 +125,7 @@ func _on_boton_icono_pressed() -> void:
 
 func _on_icono_seleccionado(ruta_archivo: String) -> void:
 	ruta_icono_seleccionado = ruta_archivo
-	var textura = _cargar_textura_desde_archivo(ruta_archivo)
+	var textura = utils.cargarTexturaDesdeArchivo(ruta_archivo)
 	if textura != null:
 		botonIcono.icon = textura
 		botonIcono.tooltip_text = ruta_icono_seleccionado
@@ -134,15 +134,6 @@ func _on_icono_seleccionado(ruta_archivo: String) -> void:
 func getRutaIconoSeleccionado() -> String:
 	return ruta_icono_seleccionado
 
-
-func _cargar_textura_desde_archivo(ruta_archivo: String) -> Texture2D:
-	if ruta_archivo.begins_with("res://") and ResourceLoader.exists(ruta_archivo):
-		return load(ruta_archivo) as Texture2D
-
-	var imagen = Image.load_from_file(ruta_archivo)
-	if imagen == null or imagen.is_empty():
-		return null
-	return ImageTexture.create_from_image(imagen)
 
 func _on_lista_item_selected(_index: int) -> void:
 	_actualizar_labels_seleccion()
@@ -174,12 +165,6 @@ func comprobarCamposRequeridos(mision_json: Dictionary) -> bool:
 			avisoErrores.text = "Campos obligatorios vacíos: " + ", ".join(campos_vacios)
 		return false
 	return true
-
-func _cargar_icono(ruta_icono: String) -> Texture2D:
-	var ruta_resuelta = ruta_icono if ruta_icono != "" else varGlobales.imgError
-	if ResourceLoader.exists(ruta_resuelta):
-		return load(ruta_resuelta) as Texture2D
-	return load(varGlobales.imgError) as Texture2D
 
 func getObjetivosSeleccionados() -> Array:
 	var seleccionados = []
